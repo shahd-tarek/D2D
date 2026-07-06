@@ -1,0 +1,130 @@
+:host {
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FBFAF8;
+    color: #603319;
+    min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.publish-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.publish-header {
+    margin-bottom: 30px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: #603319;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.stepper-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+}
+
+.step-icon,
+.step-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #EFEBE6;
+    color: #a3948b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.step.completed .step-icon {
+    background-color: #E2F5E9;
+    color: #27AE60;
+}
+
+.step.active .step-icon,
+.step.active .step-number {
+    background-color: #603319;
+    color: #FBFAF8;
+}
+
+.step-label {
+    font-size: 11px;
+    margin-top: 8px;
+    color: #a3948b;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.step.active .step-label {
+    color: #603319;
+    font-weight: 600;
+}
+
+.step-line {
+    flex-grow: 1;
+    max-width: 80px;
+    height: 1px;
+    background-color: #EFEBE6;
+    margin-bottom: 20px;
+}
+
+.step-line.active {
+    background-color: #603319;
+}
+
+.section-instruction {
+    text-align: center;
+    font-size: 13px;
+    color: #7a685d;
+    margin-bottom: 40px;
+}
+
+.main-content-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.image-preview-side {
+    display: flex;
+    justify-content: center;
+}
+
+.image-box {
+    background-color: #FAF8F5;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    border: 1px solid #F0EAE3;
+}
+
+.image-box img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.dynamic-step-content {
+    background-color: transparent;
+    width: 100%;
+}

@@ -1,0 +1,527 @@
+<app-header></app-header>
+<div class="dashboard-container">
+    <div class="balance-card">
+
+        <div class="balance-col-left">
+            <div class="label">Your Balance</div>
+            <div class="balance-amount">12,450.00 EGP</div>
+            <div class="sub-label">Available for payments</div>
+            <button class="btn-add-balance">Add Balance &nbsp;+</button>
+        </div>
+
+        <div class="balance-col-middle">
+            <div class="section-title-container">
+                <span class="section-title">Recent Transactions</span>
+                <button class="view-all-link" (click)="toggleModal(true)">View all</button>
+            </div>
+
+            <div class="transaction-item">
+                <div class="tx-left-side">
+                    <div class="tx-icon received">↓</div>
+                    <div>
+                        <div class="tx-name">Payment Received</div>
+                        <div class="tx-date">May 25, 2025</div>
+                    </div>
+                </div>
+                <div class="tx-amount received">+ 780.00 EGP</div>
+            </div>
+
+            <div class="transaction-item">
+                <div class="tx-left-side">
+                    <div class="tx-icon purchase">↑</div>
+                    <div>
+                        <div class="tx-name">Design Purchase</div>
+                        <div class="tx-date">May 25, 2025</div>
+                    </div>
+                </div>
+                <div class="tx-amount purchase">- 780.00 EGP</div>
+            </div>
+
+            <div class="transaction-item">
+                <div class="tx-left-side">
+                    <div class="tx-icon purchase">↑</div>
+                    <div>
+                        <div class="tx-name">Design Purchase</div>
+                        <div class="tx-date">May 25, 2025</div>
+                    </div>
+                </div>
+                <div class="tx-amount purchase">- 3,550.00 EGP</div>
+            </div>
+        </div>
+        <div class="balance-col-right">
+            <div class="overview-inner-box">
+                <div class="overview-header">
+                    <span class="section-title text-sm">Balance Overview</span>
+                    <div class="dropdown-wrapper">
+                        <button class="dropdown-trigger" (click)="toggleDropdown('overview')">
+                            {{ selectedOverviewFilter }} <span class="arrow-icon"></span>
+                        </button>
+                        @if (activeDropdown === 'overview') {
+                        <div class="dropdown-menu">
+                            @for (filter of filterOptions; track filter) {
+                            <div class="dropdown-item" (click)="selectFilter('overview', filter)">{{ filter }}</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="overview-row">
+                    <div class="overview-label">Total Earned</div>
+                    <div class="overview-val">25,500.00 EGP</div>
+                </div>
+
+                <div class="overview-row">
+                    <div class="overview-label">Total Spent</div>
+                    <div class="overview-val">780,00.00 EGP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bottom-grid">
+
+        <div class="bottom-card">
+            <div class="section-title-container">
+                <span class="section-title">Orders Overview</span>
+                <div class="dropdown-wrapper">
+                    <button class="dropdown-trigger" (click)="toggleDropdown('offers')">
+                        {{ selectedOffersFilter || 'This Month' }} <span class="arrow-icon"></span>
+                    </button>
+                    @if (activeDropdown === 'offers') {
+                    <div class="dropdown-menu">
+                        @for (filter of filterOptions; track filter) {
+                        <div class="dropdown-item" (click)="selectFilter('offers', filter)">{{ filter }}</div>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="donut-container">
+                    <svg width="130" height="130" viewBox="0 0 42 42">
+                        <circle cx="21" cy="21" r="15.915" fill="#fff"></circle>
+                        <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#4a2810" stroke-width="4.2"
+                            stroke-dasharray="11 89" stroke-dashoffset="25"></circle>
+                        <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#8c6a51" stroke-width="4.2"
+                            stroke-dasharray="15 85" stroke-dashoffset="14"></circle>
+                        <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#cdbbaa" stroke-width="4.2"
+                            stroke-dasharray="22 78" stroke-dashoffset="99"></circle>
+                        <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#5c3a21" stroke-width="4.2"
+                            stroke-dasharray="52 48" stroke-dashoffset="77"></circle>
+                    </svg>
+                    <div class="donut-center-text">
+                        <div class="donut-total-num">27</div>
+                        <div class="donut-total-label">Total</div>
+                    </div>
+                </div>
+
+                <div class="chart-legends">
+                    <div class="legend-item">
+                        <div class="legend-left">
+                            <div class="color-dot" style="background-color: #5c3a21;"></div>
+                            <span>Completed Orders</span>
+                        </div>
+                        <div class="legend-stats">9</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-left">
+                            <div class="color-dot" style="background-color: #cdbbaa;"></div>
+                            <span>Declined</span>
+                        </div>
+                        <div class="legend-stats">6</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-left">
+                            <div class="color-dot" style="background-color: #8c6a51;"></div>
+                            <span>Pending</span>
+                        </div>
+                        <div class="legend-stats">4</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-left">
+                            <div class="color-dot" style="background-color: #4a2810;"></div>
+                            <span>In Progress</span>
+                        </div>
+                        <div class="legend-stats">3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-card">
+            <div class="section-title-container">
+                <span class="section-title">Completed Collaborations</span>
+                <div class="dropdown-wrapper">
+                    <button class="dropdown-trigger" (click)="toggleDropdown('collaborations')">
+                        {{ selectedCollaborationsFilter }} <span class="arrow-icon"></span>
+                    </button>
+
+                    @if (activeDropdown === 'collaborations') {
+                    <div class="dropdown-menu">
+                        @for (filter of filterOptions; track filter) {
+                        <div class="dropdown-item" (click)="selectFilter('collaborations', filter)">
+                            {{ filter }}
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="line-chart-container">
+                <svg viewBox="0 0 400 200" class="line-chart-svg">
+                    <line x1="50" y1="20" x2="380" y2="20" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="50" y1="50" x2="380" y2="50" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="50" y1="80" x2="380" y2="80" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="50" y1="110" x2="380" y2="110" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="50" y1="140" x2="380" y2="140" stroke="#f5ede6" stroke-width="1" />
+
+                    <line x1="90" y1="20" x2="90" y2="150" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="137" y1="20" x2="137" y2="150" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="184" y1="20" x2="184" y2="150" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="231" y1="20" x2="231" y2="150" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="278" y1="20" x2="278" y2="150" stroke="#f5ede6" stroke-width="1" />
+                    <line x1="325" y1="20" x2="325" y2="150" stroke="#f5ede6" stroke-width="1" />
+
+                    <path d="M 90 70 L 137 115 L 184 85 L 231 100 L 278 60 L 325 110 L 370 135" fill="none"
+                        stroke="#5c3a21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+                    <text x="40" y="23" class="chart-text">100</text>
+                    <text x="40" y="38" class="chart-text">90</text>
+                    <text x="40" y="53" class="chart-text">80</text>
+                    <text x="40" y="68" class="chart-text">70</text>
+                    <text x="40" y="83" class="chart-text">60</text>
+                    <text x="40" y="98" class="chart-text">50</text>
+                    <text x="40" y="113" class="chart-text">40</text>
+                    <text x="40" y="128" class="chart-text">30</text>
+                    <text x="40" y="143" class="chart-text">20</text>
+                    <text x="40" y="143" class="chart-text">10</text>
+                    <text x="43" y="173" class="chart-text">0</text>
+
+                    <text x="40" y="195" class="chart-text-bold">D/M</text>
+                    <text x="90" y="195" class="chart-text">1</text>
+                    <text x="137" y="195" class="chart-text">2</text>
+                    <text x="184" y="195" class="chart-text">3</text>
+                    <text x="231" y="195" class="chart-text">4</text>
+                    <text x="278" y="195" class="chart-text">5</text>
+                    <text x="325" y="195" class="chart-text">6</text>
+                    <text x="370" y="195" class="chart-text">7</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="bottom-card large-card">
+            <div class="section-title-container">
+                <span class="section-title">Production Requests <span class="drafts-count">(6 pending)</span></span>
+                <button class="view-all-link">View all &rarr;</button>
+            </div>
+
+            <div class="design-item">
+                <div class="design-left">
+                    <div class="design-img-placeholder"><img src="shirt.png" alt="Denim Jeans"></div>
+                    <div>
+                        <div class="design-title">Denim Jeans</div>
+                        <div class="design-date">Jun 21, 2026</div>
+                    </div>
+                </div>
+                <div class="design-actions">
+                    <button class="btn-details">Details</button>
+                    <button class="btn-decline">Decline</button>
+                    <button class="btn-accept">Accept</button>
+                </div>
+            </div>
+
+            <div class="design-item">
+                <div class="design-left">
+                    <div class="design-img-placeholder"><img src="shirt.png" alt="Melton Pants"></div>
+                    <div>
+                        <div class="design-title">Melton Pants</div>
+                        <div class="design-date">May 15, 2026</div>
+                    </div>
+                </div>
+                <div class="design-actions">
+                    <button class="btn-details">Details</button>
+                    <button class="btn-decline">Decline</button>
+                    <button class="btn-accept">Accept</button>
+                </div>
+            </div>
+
+            <div class="design-item">
+                <div class="design-left">
+                    <div class="design-img-placeholder"><img src="shirt.png" alt="Oversized Blouse"></div>
+                    <div>
+                        <div class="design-title">Oversized Blouse</div>
+                        <div class="design-date">Mar 12, 2026</div>
+                    </div>
+                </div>
+                <div class="design-actions">
+                    <button class="btn-details">Details</button>
+                    <button class="btn-decline">Decline</button>
+                    <button class="btn-accept">Accept</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-sidebar-grid">
+            <div class="bottom-card mini-card">
+                <span class="section-title">Average Rating</span>
+                <div class="rating-value-container">
+                    <span class="star-icon">★</span>
+                    <span class="rating-number">3.2</span>
+                </div>
+                <span class="based-on-text">Based on 15 reviews</span>
+            </div>
+
+            <div class="bottom-card mini-card">
+                <span class="section-title">Unread Messages</span>
+                <div class="messages-value-container">
+                    <span class="msg-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 10H8.01M12 10H12.01M16 10H16.01M9 16H5C3.89543 16 3 15.1046 3 14V6C3 4.89543 3.89543 4 5 4H19C20.1046 4 21 4.89543 21 6V14C21 15.1046 20.1046 16 19 16H14L9 21V16Z"
+                                stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <span class="msg-number">12</span>
+                </div>
+                <button class="view-all-link bottom-align">View all &rarr;</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="offers-table-card">
+        <div class="offers-header-container">
+            <div class="offers-header-left">
+                <span class="offers-main-title">My Offers</span>
+                <div class="offers-badges-wrapper">
+                    <span class="offer-badge active">All (17)</span>
+                    <span class="offer-badge">Completed (4)</span>
+                    <span class="offer-badge">In Progress (7)</span>
+                    <span class="offer-badge">Pending (6)</span>
+                    <span class="offer-badge">Declined (6)</span>
+                </div>
+            </div>
+            <button class="view-all-link">View all &rarr;</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="offers-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Design</th>
+                        <th style="width: 25%;">Production Status</th>
+                        <th style="width: 20%;">Producer</th>
+                        <th style="width: 15%;">Last Updated</th>
+                        <th style="width: 10%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="table-design-cell">
+                                <div class="table-img-box"><img src="shirt.png" alt=""></div>
+                                <div>
+                                    <div class="design-name-txt">White T-Shirt</div>
+                                    <div class="design-id-txt">ID: #DTD1245</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-cell-wrapper">
+                                <span class="status-dot dot-inprogress"></span>
+                                <span class="status-text">In Progress</span>
+                            </div>
+                        </td>
+                        <td class="regular-cell-text">Producer #1024</td>
+                        <td class="regular-cell-text">Jun 21, 2026</td>
+                        <td><button class="btn-view-details">View Details &rarr;</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-design-cell">
+                                <div class="table-img-box"><img src="shirt.png" alt=""></div>
+                                <div>
+                                    <div class="design-name-txt">Sweatshirt</div>
+                                    <div class="design-id-txt">ID: #DTD1244</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-cell-wrapper">
+                                <span class="status-dot dot-completed"></span>
+                                <span class="status-text">Completed</span>
+                            </div>
+                        </td>
+                        <td class="regular-cell-text">Producer #1023</td>
+                        <td class="regular-cell-text">Apr 12, 2026</td>
+                        <td><button class="btn-view-details">View Details &rarr;</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-design-cell">
+                                <div class="table-img-box"><img src="shirt.png" alt=""></div>
+                                <div>
+                                    <div class="design-name-txt">Jeans Jacket</div>
+                                    <div class="design-id-txt">ID: #DTD1242</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-cell-wrapper">
+                                <span class="status-dot dot-completed"></span>
+                                <span class="status-text">Completed</span>
+                            </div>
+                        </td>
+                        <td class="regular-cell-text">Producer #1032</td>
+                        <td class="regular-cell-text">Sep 17, 2025</td>
+                        <td><button class="btn-view-details">View Details &rarr;</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-design-cell">
+                                <div class="table-img-box"><img src="shirt.png" alt=""></div>
+                                <div>
+                                    <div class="design-name-txt">Oversized Hoodie</div>
+                                    <div class="design-id-txt">ID: #DTD1243</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-cell-wrapper">
+                                <span class="status-dot dot-open"></span>
+                                <span class="status-text">Open</span>
+                            </div>
+                        </td>
+                        <td class="regular-cell-text">Producer #1046</td>
+                        <td class="regular-cell-text">Mar 6, 2025</td>
+                        <td><button class="btn-view-details">View Details &rarr;</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-design-cell">
+                                <div class="table-img-box"><img src="shirt.png" alt=""></div>
+                                <div>
+                                    <div class="design-name-txt">Jacket</div>
+                                    <div class="design-id-txt">ID: #DTD1241</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-cell-wrapper">
+                                <span class="status-dot dot-inprogress"></span>
+                                <span class="status-text">In Progress</span>
+                            </div>
+                        </td>
+                        <td class="regular-cell-text">Producer #1029</td>
+                        <td class="regular-cell-text">May 25, 2024</td>
+                        <td><button class="btn-view-details">View Details &rarr;</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (isModalOpen) {
+    <div class="modal-overlay" (click)="toggleModal(false)">
+        <div class="modal-sidebar" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h3>All Transactions</h3>
+                <button class="close-btn" (click)="toggleModal(false)">×</button>
+            </div>
+            <div class="modal-body">
+                @for (tx of allTransactions; track tx) {
+                <div class="modal-tx-item">
+                    <div class="tx-left-side">
+                        <div class="tx-icon" [ngClass]="tx.type === 'received' ? 'received' : 'purchase'">
+                            {{ tx.type === 'received' ? '↓' : '↑' }}
+                        </div>
+                        <div>
+                            <div class="tx-name">{{ tx.name }}</div>
+                            <div class="tx-date">{{ tx.date }}</div>
+                        </div>
+                    </div>
+                    <div class="tx-amount" [ngClass]="tx.type === 'received' ? 'received' : 'purchase'">
+                        {{ tx.type === 'received' ? '+' : '-' }} {{ tx.amount }} EGP
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+<div class="how-it-works-section">
+    <h2 class="main-title">How it works</h2>
+
+    <div class="tabs-container">
+        <button class="tab-btn" [class.active]="activeTab === 'ai'" (click)="changeTab('ai')">
+            How To Design With AI
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'producers'" (click)="changeTab('producers')">
+            How To Connect With Producers
+        </button>
+    </div>
+    
+    @if (activeTab === 'ai') {
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Describe Your Idea</h3>
+            <p class="step-desc">Tell us what you want to create, your style, colors, and preferences.</p>
+        </div>
+        <div class="step-arrow">--------&gt;</div>
+
+        <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Generate Designs</h3>
+            <p class="step-desc">Our AI creates multiple design concepts based on your requirements.</p>
+        </div>
+        <div class="step-arrow">--------&gt;</div>
+
+        <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Refine & Customize</h3>
+            <p class="step-desc">Adjust details, add references, and improve the design until it matches your vision.</p>
+        </div>
+        <div class="step-arrow">--------&gt;</div>
+
+        <div class="step-card">
+            <div class="step-number">04</div>
+            <h3 class="step-title">Save or Continue</h3>
+            <p class="step-desc">Keep the final design in your workspace or move to production.</p>
+        </div>
+    </div>
+    }
+    
+    @if (activeTab === 'producers') {
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Submit Your Design</h3>
+            <p class="step-desc">Choose the design you'd like to manufacture.</p>
+        </div>
+        <div class="step-arrow">--------&gt;</div>
+        <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Send Requirements</h3>
+            <p class="step-desc">Add quantity, materials, sizing, budget, and delivery preferences.</p>
+        </div>
+        <div class="step-arrow">--------&gt;</div>
+        <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Receive Offers</h3>
+            <p class="step-desc">Verified producers review your request and send proposals.</p>
+        </div>
+        <div class="step-arrow">--------&gt;</div>
+        <div class="step-card">
+            <div class="step-number">04</div>
+            <h3 class="step-title">Start Production</h3>
+            <p class="step-desc">Select the best offer and communicate directly with the producer.</p>
+        </div>
+    </div>
+    }
+</div>
+<app-footer></app-footer>

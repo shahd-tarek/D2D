@@ -1,0 +1,79 @@
+<div class="review-layout">
+  <h2 class="review-title">Summary</h2>
+
+  <div class="summary-list">
+    <div class="summary-item"><span class="item-label">Design Name</span><span class="item-value">Oversized Hoodie</span></div>
+    <div class="summary-item"><span class="item-label">Category</span><span class="item-value">Casual/ Streetwear</span></div>
+    <div class="summary-item"><span class="item-label">Target Audience</span><span class="item-value">Young Adults</span></div>
+    <div class="summary-item"><span class="item-label">Gender</span><span class="item-value">Unisex</span></div>
+    <div class="summary-item"><span class="item-label">Season</span><span class="item-value">All seasons</span></div>
+    
+    <div class="summary-item">
+      <span class="item-label">Colors</span>
+      <span class="item-value flex-row">
+        <span class="color-indicator" style="background-color: #fff; border: 1px solid #ccc;"></span>
+        <span class="color-indicator" style="background-color: #0f0c5d;"></span>
+      </span>
+    </div>
+
+    <div class="summary-item"><span class="item-label">Materials</span><span class="item-value">French Terry, 320 GSM, 100% Cotton</span></div>
+    <div class="summary-item"><span class="item-label">Quantity</span><span class="item-value">175 pcs</span></div>
+    <div class="summary-item"><span class="item-label">Target Price</span><span class="item-value">300 EGP / pc</span></div>
+    <div class="summary-item"><span class="item-label">Sizes</span><span class="item-value">S, M, L, XL</span></div>
+    <div class="summary-item"><span class="item-label">Printing</span><span class="item-value">None</span></div>
+  </div>
+
+  <div class="description-summary-section">
+    <h3 class="sub-title">Description</h3>
+    <div class="description-box">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <span class="char-count">445/500</span>
+    </div>
+  </div>
+
+  <div class="size-chart-section">
+    <h3 class="sub-title">Size Chart</h3>
+    <div class="table-responsive">
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>Centimeter</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>2XL</th><th>3XL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Length</td><td>121</td><td>123</td><td>125</td><td>127</td><td>129</td><td>131</td><td>133</td></tr>
+          <tr><td>Shoulder</td><td>52</td><td>54</td><td>56</td><td>56.5</td><td>61</td><td>63.5</td><td>66</td></tr>
+          <tr><td>Bust</td><td>95</td><td>99</td><td>103</td><td>108</td><td>113</td><td>118</td><td>123</td></tr>
+          <tr><td>Waist</td><td>60</td><td>64</td><td>68</td><td>73</td><td>78</td><td>83</td><td>88</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn-prev" (click)="onPrevious()">&lt; Previous</button>
+    <button type="button" class="btn-publish-final" (click)="onPublish()">Publish Design</button>
+  </div>
+</div>
+
+@if (showSuccessModal) {
+  <div class="modal-overlay">
+    <div class="success-modal-card">
+      
+      <button class="btn-close-modal" (click)="closeModal()">&times;</button>
+      
+      <div class="success-icon-circle">
+        <span class="checkmark">&#10003;</span>
+      </div>
+      
+      <h2>Congratulations!</h2>
+      <p>Your design has been published and is now visible to producers in My Designs.</p>
+      
+      <div class="modal-actions">
+        <button class="btn-modal-primary" (click)="goToMyDesigns()">Go to My Designs</button>
+        <button class="btn-modal-secondary" (click)="createNewDesign()">Create another design</button>
+      </div>
+
+    </div>
+  </div>
+}

@@ -1,0 +1,45 @@
+<div class="notifications-container">
+  <button (click)="toggleDropdown()" class="notification-trigger-btn" [class.active]="isOpen">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="bell-icon">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+    </svg>
+    @if (notifications.length > 0) {
+      <span class="bell-badge"></span>
+    }
+  </button>
+
+  @if (isOpen) {
+    <div class="notifications-dropdown-menu animate-fade-in">
+      <div class="dropdown-arrow"></div>
+      
+      <div class="dropdown-header">
+        <span class="header-title">Notifications</span>
+        <button (click)="markAllAsRead()" class="btn-mark-read">Mark all as read</button>
+      </div>
+
+      <div class="notifications-list-wrapper">
+        @for (notification of notifications; track notification.title) {
+          <div class="notification-item-card" [class.unread]="notification.isUnread">
+            <div class="notification-info">
+              <h4 class="notification-item-title">{{ notification.title }}</h4>
+              <p class="notification-item-desc">{{ notification.description }}</p>
+            </div>
+            <div class="notification-meta">
+              <span class="notification-time">{{ notification.time }}</span>
+              @if (notification.isUnread) {
+                <span class="unread-dot"></span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <a routerLink="/notifications" (click)="isOpen = false" class="view-all-link">
+        <span>View all notifications</span>
+        <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+    </div>
+  }
+</div>

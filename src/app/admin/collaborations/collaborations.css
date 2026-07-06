@@ -1,0 +1,350 @@
+/* --- 1. التنسيقات العامة والهيكل الرئيسي --- */
+.main-content {
+    padding:10px 30px;
+    background-color: #f9f9f9; /* الخلفية البيضاء المائلة للبيج الهادئ */
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #333333;
+}
+
+/* --- 2. رأس الصفحة (Header) --- */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-title h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 6px 0;
+}
+
+.header-title p {
+    font-size: 15px;
+    color: #666666;
+    margin: 0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.notification-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-info .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info .user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111111;
+}
+
+/* --- 3. قسم الفلاتر والبحث (Filters & Capsules) --- */
+.filters-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.search-and-status {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 280px;
+    padding: 10px 12px 10px 40px;
+    border: 1px solid #e2dad5;
+    border-radius: 25px;
+    font-size: 14px;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-input:focus {
+    border-color: #603319;
+}
+
+/* أزرار الكبسولات الدائرية */
+.status-capsules {
+    display: flex;
+    gap: 10px;
+}
+
+.capsule {
+    background-color: #ffffff;
+    border: 1px solid #e2dad5;
+    color: #603319;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.capsule span {
+    font-size: 12px;
+}
+
+.capsule.active {
+    background-color: #4a2810; /* اللون البني الداكن المفعل */
+    border-color: #4a2810;
+    color: #ffffff;
+}
+
+.capsule:hover:not(.active) {
+    background-color: #f5ede9;
+}
+
+/* زر الترتيب (Sort By) */
+.sort-btn {
+    background-color: #ffffff;
+    border: 1px solid #e2dad5;
+    color: #603319;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-btn:hover {
+    background-color: #f5ede9;
+}
+
+/* --- 4. جدول البيانات المحسن (Table Container) --- */
+.table-container {
+    background-color: #ffffff;
+    border: 1px solid #ede7e3;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(96, 51, 25, 0.02);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.users-table th {
+    background-color: #fcfbfa;
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555555;
+    border-bottom: 1px solid #ede7e3;
+}
+
+.users-table td {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #222222;
+    border-bottom: 1px solid #f7f4f2;
+    vertical-align: middle;
+}
+
+.users-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* خلايا التصميم (عمود الـ Design) */
+.table-design-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.design-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: #f5f5f5;
+}
+
+.design-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111111;
+    margin: 0 0 2px 0;
+}
+
+.design-id {
+    font-size: 12px;
+    color: #777777;
+}
+
+/* خلايا المستخدمين (Customer & Producer) */
+.table-user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cell-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cell-name {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #333333;
+}
+
+/* --- 5. كبسولات الحالات (Status Badges) --- */
+.badge {
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    text-transform: capitalize;
+}
+
+.badge.completed {
+    background-color: #e8f7f0;
+    color: #27ae60;
+}
+
+.badge.closed {
+    background-color: #fceceb;
+    color: #e74c3c;
+}
+
+.badge.pending {
+    background-color: #fef5ea;
+    color: #f39c12;
+}
+
+.badge.in-progress {
+    background-color: #f0ebf9;
+    color: #8e44ad;
+}
+
+/* --- 6. أزرار الإجراءات (Chat Details) --- */
+.btn-chat-details {
+    background-color: #5c341a; /* اللون البني الخاص بالأزرار */
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn-chat-details:hover {
+    background-color: #442512;
+}
+
+/* --- 7. الترقيم السفلي الدائري (Pagination) --- */
+.pagination-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.page-num-circle, .page-arrow-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #e2dad5;
+    background-color: #ffffff;
+    color: #603319;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-num-circle.active {
+    background-color: #4a2810;
+    color: #ffffff;
+    border-color: #4a2810;
+}
+
+.page-num-circle:hover:not(.active), .page-arrow-circle:hover {
+    background-color: #f5ede9;
+}
+
+.page-dots {
+    color: #603319;
+    padding: 0 4px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* --- 8. التوافق الشاشات (Responsive) --- */
+@media screen and (max-width: 1024px) {
+    .table-container {
+        overflow-x: auto;
+    }
+    .users-table {
+        min-width: 900px;
+    }
+    .filters-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .search-and-status {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

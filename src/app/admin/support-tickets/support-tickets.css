@@ -1,0 +1,313 @@
+/* --- التنسيقات العامة والخطوط --- */
+.main-content {
+    padding: 10px 30px;
+    background-color: #f9f9f9;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* --- الهيدر العلوي --- */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.header-title h1 {
+    font-size: 26px;
+    color: #111;
+    margin: 0 0 6px 0;
+}
+.header-title p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.user-profile .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+.notification-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- قسم الفلاتر والبحث الكبسولات --- */
+.filters-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.search-and-status {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-icon {
+    position: absolute;
+    left: 14px;
+}
+.search-input {
+    width: 260px;
+    padding: 10px 12px 10px 40px;
+    border: 1px solid #e2dad5;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+}
+.status-capsules {
+    display: flex;
+    gap: 8px;
+}
+.capsule {
+    background: #f9f9f9;
+    border: 1px solid #e2dad5;
+    color: #603319;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.capsule.active {
+    background-color: #603319;
+    border-color: #603319;
+    color: #ffffff;
+}
+.sort-btn {
+    background: #ffffff;
+    border: 1px solid #e2dad5;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* --- تنسيقات جدول التيكتس --- */
+.table-container {
+    background: #ffffff;
+    border: 1px solid #ede7e3;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+}
+.tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tickets-table th {
+    background-color: #fcfbfa;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #555;
+    border-bottom: 1px solid #ede7e3;
+    text-align: left;
+}
+.tickets-table td {
+    padding: 16px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid #f7f4f2;
+}
+.ticket-id {
+    font-weight: 500;
+    color: #555;
+}
+.user-name-cell {
+    font-weight: 500;
+}
+.subject-cell {
+    color: #222;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- كبسولات الحالة (Badges) --- */
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.badge.resolved { background: #e8f7f0; color: #27ae60; }
+.badge.open { background: #fef5ea; color: #f39c12; }
+.badge.in-review { background: #f0ebf9; color: #8e44ad; }
+
+/* --- أزرار الإجراءات داخل الجدول --- */
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+.btn-change-status {
+    background: none;
+    border: 1px solid #e2dad5;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.btn-reply {
+    border: none;
+    border-radius: 15px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.btn-reply.active {
+    background-color: #603319;
+    color: #ffffff;
+}
+.btn-reply.disabled {
+    background-color: #e0e0e0;
+    color: #888888;
+    cursor: not-allowed;
+}
+
+/* --- الـ Pagination الترقيم السفلي --- */
+.pagination-footer {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 24px;
+}
+.page-num, .page-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #e2dad5;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page-num.active {
+    background: #603319;
+    color: #fff;
+    border-color: #603319;
+}
+
+/* ==================== تصميم الـ Modals المنبثقة ==================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+.modal-box {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+}
+.modal-box h2 {
+    font-size: 20px;
+    color: #111;
+    margin: 0 0 8px 0;
+}
+.modal-subtitle {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.textarea-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+}
+.textarea-wrapper textarea {
+    width: 100%;
+    height: 160px;
+    border: 1px solid #ede7e3;
+    background-color: #fbfbfa;
+    border-radius: 16px;
+    padding: 16px;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+}
+.char-count {
+    position: absolute;
+    bottom: 12px; right: 16px;
+    font-size: 12px; color: #999;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+.btn-modal-cancel {
+    background: none;
+    border: 1px solid #e2dad5;
+    padding: 10px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.btn-modal-submit, .btn-success-done {
+    background-color: #603319;
+    color: #ffffff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* نافذة النجاح خضراء الأيقونة */
+.success-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.success-icon-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #27ae60;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.modal-close-x {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none;
+    font-size: 24px; cursor: pointer; color: #999;
+}
+.btn-success-done {
+    width: 100%;
+    margin-top: 10px;
+}

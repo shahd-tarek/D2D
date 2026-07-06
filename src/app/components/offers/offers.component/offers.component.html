@@ -1,0 +1,226 @@
+@if (currentView === 'list') {
+<div class="offers-page-wrapper">
+    <div class="offers-container">
+
+        <header class="offers-header">
+            <div class="header-title-row">
+                <h1>Offers</h1>
+                <button class="btn-add-design">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add design
+                </button>
+            </div>
+            <p class="subtitle">Keep tracking all of your offers</p>
+        </header>
+
+        <div class="search-filter-bar">
+            <div class="search-input-wrapper">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Search design offers" />
+            </div>
+
+            <div class="sort-dropdown-container">
+                <button class="btn-sort" (click)="toggleSortDropdown($event)">
+                    <span>Sort by: {{ selectedSortOption }}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </button>
+
+                @if (isSortDropdownOpen) {
+                <div class="sort-dropdown-menu">
+                    @for (option of sortOptions; track option) {
+                    <div class="sort-item" [class.active]="selectedSortOption === option"
+                        (click)="selectSortOption(option)">
+                        {{ option }}
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+
+        <h2 class="section-title">Designs Offers</h2>
+
+        <div class="offers-list">
+            @for (offer of offers; track offer.id) {
+            <div class="offer-card">
+
+                <div class="column product-col">
+                    <div class="product-img-box">
+                        <img [src]="offer.image" [alt]="offer.title" />
+                    </div>
+                    <div class="product-details">
+                        <h3>{{ offer.title }}</h3>
+                        <p class="producer-id">Producer #{{ offer.producerId }}</p>
+                        <div class="rating">
+                            <svg class="star-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                            <span class="rating-val">{{ offer.rating }}</span>
+                            <span class="orders-count">({{ offer.ordersCount }})</span>
+                        </div>
+                        <p class="completed-orders">{{ offer.completedOrders }} Completed Orders</p>
+                    </div>
+                </div>
+
+                <div class="column proposal-col">
+                    <h4>Proposal</h4>
+                    <p>{{ offer.proposal }}</p>
+                </div>
+
+                <div class="column meta-col">
+                    <div class="meta-item">
+                        <span class="meta-label">Price</span>
+                        <strong class="price-text">EGP {{ offer.price }} / PC</strong>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Delivery Time</span>
+                        <div class="delivery-days">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>{{ offer.deliveryTime }} Days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column actions-col">
+                    <div class="more-menu-container">
+                        <button class="btn-more" (click)="toggleCardMenu(offer.id, $event)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="5" r="1"></circle>
+                                <circle cx="12" cy="12" r="1"></circle>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </svg>
+                        </button>
+
+                        @if (activeCardMenuId === offer.id) {
+                        <div class="action-dropdown-menu">
+                            <button class="dropdown-action-btn" (click)="openSaveModal(offer.id)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <span>Save</span>
+                            </button>
+
+                            <button class="dropdown-action-btn" (click)="openDeclineModal(offer.id)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                </svg>
+                                <span>Decline Offer</span>
+                            </button>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="action-buttons-group">
+                        <button class="btn-accept" (click)="handleAcceptOffer(offer)">Accept offer</button> <button
+                            class="btn-details" (click)="viewDetails(offer)">View Details</button>
+                    </div>
+                    <span class="time-ago">{{ offer.timeAgo }}</span>
+                </div>
+
+            </div>
+            }
+        </div>
+
+        <div class="pagination-container">
+            <button class="btn-nav-page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg></button>
+            <button class="page-num active">1</button>
+            <button class="page-num">2</button>
+            <button class="page-num">3</button>
+            <span class="page-dots">...</span>
+            <button class="btn-nav-page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                </svg></button>
+        </div>
+
+        <div class="info-note-box">
+            <div class="note-icon-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8c6e53" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <strong>Note</strong>
+            </div>
+            <p>Once you accept an offer, you'll pay a refundable deposit to start chatting with the producer. If no
+                agreement is reached, the full deposit will be returned to your account.</p>
+        </div>
+
+    </div>
+</div>
+}@else if (currentView === 'details') {
+<app-offer-details [offer]="selectedOfferForDetails" (back)="handleBackToList()" (accept)="handleAcceptOffer($event)">
+</app-offer-details>
+}
+
+<app-accept-offer [isOpen]="isPaymentOpen" [offer]="selectedOfferForPayment" (close)="handleClosePayment()">
+</app-accept-offer>
+
+@if (isDeclineModalOpen) {
+<div class="modal-backdrop" (click)="closeModals()">
+    <div class="custom-modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-icon-wrapper">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L1 21h22L12 2z" fill="#FFC107" />
+                <path d="M12 9v5" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="17" r="1" fill="#1a1a1a" />
+            </svg>
+        </div>
+        <h2>Decline Offer!</h2>
+        <p>Are you sure you want to delete this offer?</p>
+
+        <div class="modal-actions-row">
+            <button class="btn-modal-cancel" (click)="closeModals()">Cancel</button>
+            <button class="btn-modal-confirm decline" (click)="confirmDecline()">Decline</button>
+        </div>
+    </div>
+</div>
+}
+
+@if (isSaveModalOpen) {
+<div class="modal-backdrop" (click)="closeModals()">
+    <div class="custom-modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-icon-wrapper">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L1 21h22L12 2z" fill="#FFC107" />
+                <path d="M12 9v5" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="17" r="1" fill="#1a1a1a" />
+            </svg>
+        </div>
+        <h2>Save as Draft!</h2>
+        <p>Only the uploaded design image will be saved as a draft. The details you've entered won't be saved and will
+            be cleared.</p>
+
+        <div class="modal-actions-row">
+            <button class="btn-modal-cancel" (click)="closeModals()">Cancel</button>
+            <button class="btn-modal-confirm draft" (click)="confirmSave()">Draft</button>
+        </div>
+    </div>
+</div>
+}

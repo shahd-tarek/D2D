@@ -1,0 +1,295 @@
+<div class="view-container">
+
+    <header class="view-header">
+        <div class="header-left">
+            <button class="btn-back" (click)="goBack()">&larr;</button>
+            <h1 class="main-design-title">Overview</h1>
+        </div>
+    </header>
+
+    <div class="view-main-layout">
+
+        <div class="design-preview-side">
+            <div class="preview-card">
+                <label class="section-main-title">Design Preview</label>
+                <div class="main-image-box">
+                    <img src="shirt.png" alt="Casual Streetwear Preview">
+                </div>
+                <button class="btn-view-full">
+                    View full design
+                    <span class="icon-external">↗</span>
+                </button>
+
+                <div class="design-info-block">
+                    <h3 class="block-title">Design Info</h3>
+                    <div class="info-row">
+                        <span class="info-label">Created on</span>
+                        <span class="info-value-text">May 20, 2026</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last update</span>
+                        <span class="info-value-text">May 25, 2026 2:30 AM</span>
+                    </div>
+                </div>
+
+                <div class="design-info-block">
+                    <h3 class="block-title">Summary</h3>
+                    <div class="info-row">
+                        <span class="info-label">Colors</span>
+                        <span class="info-value-text">2</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Materials</span>
+                        <span class="info-value-text">3</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Sizes</span>
+                        <span class="info-value-text">4</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Total Quantity</span>
+                        <span class="info-value-text">175 pcs</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Target Price</span>
+                        <span class="info-value-text">300 EGP / pc</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Printing</span>
+                        <span class="info-value-text">0</span>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <span class="tip-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9.66347 17H14.3364M11.9999 3V4M18.3639 5.63604L17.6568 6.34315M21 11.9999H20M4 11.9999H3M6.34309 6.34315L5.63599 5.63604M8.46441 15.5356C6.51179 13.5829 6.51179 10.4171 8.46441 8.46449C10.417 6.51187 13.5829 6.51187 15.5355 8.46449C17.4881 10.4171 17.4881 13.5829 15.5355 15.5356L14.9884 16.0827C14.3555 16.7155 13.9999 17.5739 13.9999 18.469V19C13.9999 20.1046 13.1045 21 11.9999 21C10.8954 21 9.99995 20.1046 9.99995 19V18.469C9.99995 17.5739 9.6444 16.7155 9.01151 16.0827L8.46441 15.5356Z"
+                                stroke="#603319" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <div class="tip-content">
+                        <strong>Tip</strong>
+                        <p>The more details you provide, the easier it will be for the producer to give you an accurate
+                            quotation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="design-info-side">
+
+            <div class="info-card">
+                <h2 class="card-title">Basic Information</h2>
+
+                <div class="info-group">
+                    <label>Design Name</label>
+                    <div class="input-display-box">
+                        <span class="info-value">Casual Streetwear</span>
+                        <span class="char-count">0/50</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Category</label>
+                    <div class="input-display-box dropdown-box">
+                        <span class="info-value">Tops</span>
+                        <span class="arrow-down">▼</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Description</label>
+                    <div class="description-view-box">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <span class="char-count">445/500</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Target Audience</label>
+                    <div class="input-display-box">
+                        <span class="info-value">Young adults</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Gender</label>
+                    <div class="gender-tags">
+                        <span class="gender-tag active">Unisex</span>
+                        <span class="gender-tag">Male</span>
+                        <span class="gender-tag">Female</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Season</label>
+                    <div class="input-display-box dropdown-box">
+                        <span class="info-value">All seasons</span>
+                        <span class="arrow-down">▼</span>
+                    </div>
+                </div>
+
+                <div class="info-group">
+                    <label>Style</label>
+                    <div class="input-display-box">
+                        <span class="info-value">Casual | Streetwear</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-group">
+                    <label class="card-section-title">Colors</label>
+                    <div class="color-badges-row">
+                        <div class="color-box-wrapper">
+                            <span class="color-box"
+                                style="background-color: #ffffff; border: 1px solid #eae4de;"></span>
+                            <span class="remove-color">×</span>
+                        </div>
+                        <div class="color-box-wrapper">
+                            <span class="color-box" style="background-color: #0f0c5d;"></span>
+                            <span class="remove-color">×</span>
+                        </div>
+                        <div class="add-color-btn">+</div>
+                    </div>
+                </div>
+
+                <div class="info-group" style="margin-top: 24px;">
+                    <label class="card-section-title">Materials</label>
+                    <div class="materials-row">
+                        <div class="material-pill">French Terry</div>
+                        <div class="material-pill">320 GSM</div>
+                        <div class="material-pill">100% Cotton</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-group">
+                    <label class="card-section-title">Quantity (pcs)</label>
+                    <div class="input-display-box">
+                        <span class="info-value">175</span>
+                    </div>
+                    <span class="sub-caption">Minimum order quantity: 150 pieces</span>
+                </div>
+
+                <div class="info-group" style="margin-top: 20px;">
+                    <label class="card-section-title">Target Price</label>
+                    <div class="input-display-box price-box">
+                        <span class="info-value">300</span>
+                        <span class="currency-label">EGP</span>
+                    </div>
+                    <span class="sub-caption">Producers may submit different offers based on materials and production
+                        requirements.</span>
+                </div>
+
+                <div class="info-group" style="margin-top: 20px;">
+                    <label class="card-section-title">Printing Type</label>
+                    <div class="input-display-box dropdown-box">
+                        <span class="info-value">None</span>
+                        <span class="arrow-down">▼</span>
+                    </div>
+                </div>
+
+                <div class="info-group" style="margin-top: 20px;">
+                    <label class="card-section-title">Sizes</label>
+                    <div class="sizes-checkbox-grid">
+                        <label class="size-check"><input type="checkbox" disabled> XS</label>
+                        <label class="size-check checked"><input type="checkbox" checked disabled> S</label>
+                        <label class="size-check checked"><input type="checkbox" checked disabled> M</label>
+                        <label class="size-check checked"><input type="checkbox" checked disabled> L</label>
+                        <label class="size-check checked"><input type="checkbox" checked disabled> XL</label>
+                        <label class="size-check"><input type="checkbox" disabled> XXL</label>
+                        <label class="size-check"><input type="checkbox" disabled> 3XL</label>
+                        <label class="size-check"><input type="checkbox" disabled> 4XL</label>
+                        <label class="size-check"><input type="checkbox" disabled> 5XL</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="size-chart-section">
+                <h3 class="chart-section-title">Size Chart</h3>
+                <div class="table-container-responsive">
+                    <table class="design-spec-table">
+                        <thead>
+                            <tr>
+                                <th>Centimeter</th>
+                                <th>XS</th>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>L</th>
+                                <th>XL</th>
+                                <th>2XL</th>
+                                <th>3XL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Length</td>
+                                <td>121</td>
+                                <td>123</td>
+                                <td>125</td>
+                                <td>127</td>
+                                <td>129</td>
+                                <td>131</td>
+                                <td>133</td>
+                            </tr>
+                            <tr>
+                                <td>Shoulder</td>
+                                <td>52</td>
+                                <td>54</td>
+                                <td>56</td>
+                                <td>56.5</td>
+                                <td>61</td>
+                                <td>63.5</td>
+                                <td>66</td>
+                            </tr>
+                            <tr>
+                                <td>Bust</td>
+                                <td>95</td>
+                                <td>99</td>
+                                <td>103</td>
+                                <td>108</td>
+                                <td>113</td>
+                                <td>118</td>
+                                <td>123</td>
+                            </tr>
+                            <tr>
+                                <td>Waist</td>
+                                <td>60</td>
+                                <td>64</td>
+                                <td>68</td>
+                                <td>73</td>
+                                <td>78</td>
+                                <td>83</td>
+                                <td>88</td>
+                            </tr>
+                            <tr>
+                                <td>Sleeve</td>
+                                <td>58.5</td>
+                                <td>59</td>
+                                <td>59.5</td>
+                                <td>60</td>
+                                <td>60.5</td>
+                                <td>61</td>
+                                <td>61.5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="action-buttons-row">
+                <button class="btn-secondary">Save Draft</button>
+                <button class="btn-primary">Publish</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

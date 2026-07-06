@@ -1,0 +1,73 @@
+<div class="wallet-container">
+
+  @if (currentPage === 'wallet') {
+    <div class="page-wrapper">
+      
+      <div class="wallet-card">
+        <h2 class="balance-title">Your Balance</h2>
+        <p class="balance-amount">EGP {{ balance | number:'1.2-2' }}</p>
+
+        <div>
+          <label class="input-label">Enter Amount</label>
+          <div class="form-group">
+            <div class="input-wrapper">
+              <span class="currency-prefix">EGP</span>
+              <input 
+                type="number" 
+                [(ngModel)]="inputAmount"
+                placeholder="0.00" 
+                class="amount-input"
+              />
+            </div>
+            <button (click)="navigateTo('add-balance')" class="btn-add-balance">
+              <span>+</span> Add Balance
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="wallet-card">
+        <h3 class="transactions-title">All Transactions</h3>
+        
+        <div>
+          <div *ngFor="let tx of transactions" class="transaction-item">
+            
+            <div class="tx-left">
+              <div class="tx-icon" [ngClass]="tx.type === 'refund' ? 'tx-refund' : 'tx-payment'">
+                <span *ngIf="tx.type === 'payment'">↑</span>
+                <span *ngIf="tx.type === 'refund'">↓</span>
+              </div>
+              
+              <div class="tx-details">
+                <p class="tx-name">{{ tx.title }}</p>
+                <p class="tx-date">{{ tx.date }}</p>
+              </div>
+            </div>
+
+            <div class="tx-amount" [ngClass]="tx.type === 'refund' ? 'amount-positive' : 'amount-negative'">
+              {{ tx.amount > 0 ? '+ ' : '' }}{{ tx.amount | number:'1.2-2' }} EGP
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div> }
+
+  @if (currentPage === 'add-balance') {
+    <app-add-balance 
+      [balance]="balance" 
+      [amount]="inputAmount"
+      (back)="navigateTo('wallet')"
+      (continue)="navigateTo('checkout')">
+    </app-add-balance>
+  }
+
+  @if (currentPage === 'checkout') {
+    <app-checkout 
+      [amount]="inputAmount"
+      (back)="navigateTo('add-balance')">
+    </app-checkout>
+  }
+
+</div>

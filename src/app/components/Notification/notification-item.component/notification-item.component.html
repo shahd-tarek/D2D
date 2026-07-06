@@ -1,0 +1,12 @@
+<div class="notification-item-card" [class.unread]="data.isUnread">
+  <div class="notification-info">
+    <h4 class="notification-item-title">{{ data.title }}</h4>
+    <p class="notification-item-desc">{{ data.description }}</p>
+  </div>
+  <div class="notification-meta">
+    <span class="notification-time">{{ data.time }}</span>
+    @if (data.isUnread) {
+      <span class="unread-dot"></span>
+    }
+  </div>
+</div>

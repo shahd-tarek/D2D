@@ -1,0 +1,79 @@
+<form [formGroup]="publishForm" (ngSubmit)="onSubmit()" class="details-form-side">
+  
+  <div class="form-group">
+    <label>Design Name</label>
+    <div class="input-wrapper">
+      <input type="text" formControlName="designName" placeholder="EXP: Oversized Hoodie">
+      <span class="char-count">{{ designNameLength }}/50</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Category</label>
+    <div class="select-wrapper">
+      <select formControlName="category">
+        <option value="" disabled>Select category</option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="outerwear">Outerwear</option>
+        <option value="dresses">Dresses</option>
+        <option value="activewear">Activewear</option>
+        <option value="accessories">Accessories</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <div class="input-wrapper">
+      <textarea formControlName="description" placeholder="Describe your design in detail." rows="5"></textarea>
+      <span class="char-count">{{ descriptionLength }}/500</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Target Audience</label>
+    <input type="text" formControlName="targetAudience" placeholder="EXP: Women 18-30, Casual Streetwear Lovers">
+  </div>
+
+  <div class="form-group">
+    <label>Gender</label>
+    <div class="chips-group">
+      @for (option of genderOptions; track option) {
+        <button 
+          type="button" 
+          [class.active]="selectedGender === option"
+          (click)="selectGender(option)"
+          class="chip">
+          {{ option }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Season</label>
+    <div class="select-wrapper">
+      <select formControlName="season">
+        <option value="" disabled>Select a season</option>
+        <option value="spring">Spring</option>
+        <option value="summer">Summer</option>
+        <option value="autumn">Autumn / Fall</option>
+        <option value="winter">Winter</option>
+        <option value="all">All Seasons</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Style</label>
+    <input type="text" formControlName="style" placeholder="Casual, Streetwear, Formal, etc">
+  </div>
+
+  <div class="form-actions">
+    <button type="button" (click)="onPrevious()" class="btn-prev">&lt; Previous</button>
+    <button type="submit" [disabled]="publishForm.invalid" class="btn-next">Next &gt;</button>
+  </div>
+
+</form>

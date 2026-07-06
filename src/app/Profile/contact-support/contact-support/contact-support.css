@@ -1,0 +1,293 @@
+.support-page-container {
+  padding: 100px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.back-arrow {
+  color: #111111;
+  display: flex;
+  align-items: center;
+}
+
+.back-header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+/* تقسيم الشاشة: الكروت على اليسار، والمربع الكبير على اليمين */
+.grid-and-textarea-wrapper {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.complaint-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+
+/* تصميم الكارد الفردي */
+.complaint-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 16px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* تصميم دائرة الاختيار العلوية الصغيرة بداخل الكارد */
+.custom-radio-circle {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+/* حالة اختيار الكارد (يتلون بالبني المعتمد) */
+.complaint-card.selected {
+  border-color: #5c321a;
+
+}
+
+.complaint-card.selected .custom-radio-circle {
+  border-color: #5c321a;
+  background-color: #5c321a;
+}
+
+.complaint-card.selected .custom-radio-circle::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-body {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.icon-box {
+  color: #111111;
+  margin-bottom: 12px;
+}
+
+.card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 6px 0;
+}
+
+.card-body p {
+  font-size: 0.75rem;
+  color: #666666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* حاوية وتنسيق الـ Textarea */
+.textarea-container {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
+textarea {
+  width: 100%;
+  height: 290px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+  background-color: #ffffff;
+}
+
+textarea:focus {
+  border-color: #5c321a;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+/* أزرار التحكم السفلية */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.btn-cancel {
+  padding: 12px 40px;
+  border: 1px solid #5c321a;
+  background-color: #ffffff;
+  color: #5c321a;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-submit {
+  padding: 12px 40px;
+  border: none;
+  background-color: #5c321a;
+  color: #ffffff;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-submit:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* بانر النصائح السفلي المظلل المماثل للصورة */
+.tips-banner {
+  background-color: #f7f3f0;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-top: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.tips-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #5c321a;
+  margin-bottom: 6px;
+}
+
+.tips-banner p {
+  font-size: 0.78rem;
+  color: #7c6e65;
+  margin: 0;
+  line-height: 1.5;
+}
+/* تنسيقات بوب اب النجاح المطابقة للصورة المرفقة */
+.success-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3); /* خلفية ضبابية خفيفة */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.success-popup-card {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 28px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.success-checkmark-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #3f8155; /* لون الخلفية الخضراء للدائرة */
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px auto;
+}
+
+.success-popup-card h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 12px 0;
+}
+
+.success-popup-message {
+  font-size: 0.88rem;
+  color: #444444;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+  padding: 0 10px;
+}
+
+.btn-done {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  background-color: #5c321a; /* اللون البني المعتمد للتطبيق */
+  color: #ffffff;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-done:hover {
+  background-color: #4a2714;
+}

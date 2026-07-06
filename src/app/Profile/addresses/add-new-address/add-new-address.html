@@ -1,0 +1,117 @@
+<div class="modal-backdrop" (click)="cancel()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    
+    <h2 class="modal-title">Add New Address</h2>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      
+      <div class="form-field-group">
+        <label>Choose Address Type</label>
+        <div class="address-type-container">
+          <label class="type-pill">
+            <input type="radio" formControlName="addressType" value="home" />
+            <span class="custom-radio"></span>
+            Home
+          </label>
+          <label class="type-pill">
+            <input type="radio" formControlName="addressType" value="work" />
+            <span class="custom-radio"></span>
+            Work
+          </label>
+          <label class="type-pill">
+            <input type="radio" formControlName="addressType" value="other" />
+            <span class="custom-radio"></span>
+            Other
+          </label>
+        </div>
+      </div>
+
+      <div class="input-row-split">
+        <div class="form-field-group">
+          <label>Governorate *</label>
+          <div class="dropdown-arrow-wrapper">
+            <select formControlName="governorate">
+              <option value="">Select your governorate</option>
+              @for (gov of governorateList; track gov.key) {
+                <option [value]="gov.key">{{ gov.name }}</option>
+              }
+            </select>
+          </div>
+          @if (form.get('governorate')?.touched && form.get('governorate')?.invalid) {
+            <span class="error-msg">Governorate is required</span>
+          }
+        </div>
+        
+        <div class="form-field-group">
+          <label>City *</label>
+          <div class="dropdown-arrow-wrapper">
+            <select formControlName="city">
+              <option value="">Select your city</option>
+              @for (cityName of filteredCities; track cityName) {
+                <option [value]="cityName">{{ cityName }}</option>
+              }
+            </select>
+          </div>
+          @if (form.get('city')?.touched && form.get('city')?.invalid) {
+            <span class="error-msg">City is required</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-field-group">
+        <label for="inp-district">Area / District *</label>
+        <div class="field-wrapper">
+          <input type="text" id="inp-district" formControlName="district" placeholder="Smouha" />
+        </div>
+        @if (form.get('district')?.touched && form.get('district')?.invalid) {
+          <span class="error-msg">Area / District is required</span>
+        }
+      </div>
+
+      <div class="form-field-group">
+        <label for="inp-street">Street Address *</label>
+        <div class="field-wrapper">
+          <input type="text" id="inp-street" formControlName="streetAddress" placeholder="15 El Horreya Road" />
+        </div>
+        @if (form.get('streetAddress')?.touched && form.get('streetAddress')?.invalid) {
+          <span class="error-msg">Street address is required</span>
+        }
+      </div>
+
+      <div class="input-row-split">
+        <div class="form-field-group">
+          <label for="inp-building">Building Number *</label>
+          <div class="field-wrapper">
+            <input type="text" id="inp-building" formControlName="buildingNumber" placeholder="12" />
+          </div>
+          @if (form.get('buildingNumber')?.touched && form.get('buildingNumber')?.invalid) {
+            <span class="error-msg">Building number is required</span>
+          }
+        </div>
+        
+        <div class="form-field-group">
+          <label for="inp-apartment">Apartment Number *</label>
+          <div class="field-wrapper">
+            <input type="text" id="inp-apartment" formControlName="apartmentNumber" placeholder="8" />
+          </div>
+          @if (form.get('apartmentNumber')?.touched && form.get('apartmentNumber')?.invalid) {
+            <span class="error-msg">Apartment number is required</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-field-group">
+        <label for="inp-landmark">Landmark (Optional)</label>
+        <div class="field-wrapper">
+          <input type="text" id="inp-landmark" formControlName="landmark" placeholder="Near City Center Mall" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn-add">Add</button>
+      </div>
+
+    </form>
+  </div>
+</div>

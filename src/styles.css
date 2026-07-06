@@ -1,1 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   GLOBAL STYLES — src/styles.css
+   All font imports, resets, body layout, and CSS tokens live
+   here. Do NOT duplicate these in any component CSS file.
+   ============================================================ */
+
+/* --- Font Imports --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+
+/* --- Global Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Design Tokens --- */
+:root {
+  --primary-brown: #5c2d16;
+  --primary-brown-dark: #411f0e;
+  --text-dark: #2d2621;
+  --text-muted: #55514d;
+  --input-bg: #ffffff;
+  --border-radius: 30px;
+  --font-main: 'Montserrat', sans-serif;
+}
+
+/* --- Base Typography --- */
+html {
+  font-family: var(--font-main);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #fbf9f6;
+  overflow-x: hidden;
+}
+
+/* --- Link resets --- */
+a {
+  text-decoration: none;
+  color: inherit;
+}

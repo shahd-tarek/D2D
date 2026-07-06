@@ -1,0 +1,52 @@
+<div class="publish-container">
+  <header class="publish-header">
+    <button class="btn-back" (click)="goBackToDashboard()">&larr; Publish Design</button>
+  </header>
+
+  <div class="stepper-wrapper">
+    <div class="step" [class.completed]="currentStep > 1" [class.active]="currentStep === 1">
+      <div class="step-icon">@if(currentStep > 1){ &#10003; } @else { 1 }</div>
+      <span class="step-label">Upload</span>
+    </div>
+    <div class="step-line" [class.active]="currentStep >= 2"></div>
+    
+    <div class="step" [class.completed]="currentStep > 2" [class.active]="currentStep === 2">
+      <div class="step-icon">@if(currentStep > 2){ &#10003; } @else { 2 }</div>
+      <span class="step-label">Details</span>
+    </div>
+    <div class="step-line" [class.active]="currentStep >= 3"></div>
+
+    <div class="step" [class.completed]="currentStep > 3" [class.active]="currentStep === 3">
+      <div class="step-icon">@if(currentStep > 3){ &#10003; } @else { 3 }</div>
+      <span class="step-label">Colors & Materials</span>
+    </div>
+    <div class="step-line" [class.active]="currentStep >= 4"></div>
+
+    <div class="step" [class.completed]="currentStep > 4" [class.active]="currentStep === 4">
+      <div class="step-icon">@if(currentStep > 4){ &#10003; } @else { 4 }</div>
+      <span class="step-label">Sizes & Quantity</span>
+    </div>
+    <div class="step-line" [class.active]="currentStep >= 5"></div>
+
+    <div class="step" [class.active]="currentStep === 5">
+      <div class="step-number">5</div>
+      <span class="step-label">Review</span>
+    </div>
+  </div>
+
+  <p class="section-instruction">{{ getInstructionText() }}</p>
+
+  <div class="main-content-layout">
+    
+    <div class="image-preview-side">
+      <div class="image-box">
+        <img src="shirt.png" alt="Design Preview">
+      </div>
+    </div>
+
+    <div class="dynamic-step-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

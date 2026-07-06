@@ -1,0 +1,168 @@
+<app-header></app-header>
+
+@if (currentView === 'list') {
+<div class="offers-page-wrapper">
+    <div class="offers-container">
+
+        <header class="offers-header">
+            <h1>Proposals</h1>
+            <p class="subtitle">Browse all your proposals and track their progress.</p>
+        </header>
+
+        <div class="filter-sort-bar">
+            <div class="status-filters">
+                <button class="filter-chip active">All (23)</button>
+                <button class="filter-chip">Accepted (6)</button>
+                <button class="filter-chip">Pending (3)</button>
+                <button class="filter-chip">Declined (3)</button>
+            </div>
+
+            <div class="action-right-group">
+                <div class="sort-dropdown-container">
+                    <button class="btn-sort" (click)="toggleSortDropdown($event)">
+                        <span>Sort By: {{ selectedSortOption }}</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+
+                    @if (isSortDropdownOpen) {
+                    <div class="sort-dropdown-menu">
+                        @for (option of sortOptions; track option) {
+                        <div class="sort-item" [class.active]="selectedSortOption === option"
+                            (click)="selectSortOption(option)">
+                            {{ option }}
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <button class="btn-new-proposal">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Proposal
+                </button>
+            </div>
+        </div>
+
+        <div class="offers-list">
+            @for (offer of offers; track offer.id) {
+            <div class="offer-card">
+
+                <div class="column product-col">
+                    <div class="product-img-box">
+                        <img [src]="offer.image" [alt]="offer.title" />
+                    </div>
+                    <div class="product-details">
+                        <h3>{{ offer.title }}</h3>
+                        <p class="producer-id">Customer #{{ offer.producerId }}</p>
+                        <p class="proposal-date">{{ offer.date }}</p>
+                    </div>
+                </div>
+
+                <div class="column proposal-col">
+                    <h4>Proposal</h4>
+                    <p>{{ offer.proposal }}</p>
+                </div>
+
+                <div class="column meta-col">
+                    <div class="meta-item">
+                        <span class="meta-label">Price</span>
+                        <strong class="price-text">EGP {{ offer.price }} / PC</strong>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Delivery Time</span>
+                        <div class="delivery-days">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>{{ offer.deliveryTime }} Days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column actions-col">
+                    <span class="status-badge" [ngClass]="offer.status.toLowerCase()">
+                        {{ offer.status }}
+                    </span>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-delete-card" [disabled]="offer.status === 'Declined'" (click)="openDeclineModal(offer.id)">Delete</button>
+                        <button class="btn-arrow-details" (click)="viewDetails(offer)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            }
+        </div>
+
+        <div class="pagination-container">
+            <button class="btn-nav-page">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <button class="page-num active">1</button>
+            <button class="page-num">2</button>
+            <button class="page-num">3</button>
+            <span class="page-dots">...</span>
+            <button class="btn-nav-page">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="info-note-box">
+            <div class="note-icon-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#603319" stroke-width="2">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 4.477 2 12s4.477 10 10 10z"/>
+                    <path d="M12 16v-4"/>
+                    <path d="M12 8h.01"/>
+                </svg>
+                <strong>Note</strong>
+            </div>
+            <p>Once a proposal is accepted, you'll receive a notification and it will appear in Active Orders.</p>
+        </div>
+
+    </div>
+</div>
+} @else {
+    <app-proposal-details 
+        [offer]="selectedOfferForDetails" 
+        (back)="handleBackToList()"
+        (decline)="openDeclineModal($event.id)">
+    </app-proposal-details>
+}
+<app-footer></app-footer>
+
+@if (isDeclineModalOpen) {
+<div class="modal-backdrop" (click)="closeModals()">
+    <div class="custom-modal-card" (click)="$event.stopPropagation()">
+        <div class="modal-icon-wrapper">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L1 21h22L12 2z" fill="#FFC107" />
+                <path d="M12 9v5" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="17" r="1" fill="#1a1a1a" />
+            </svg>
+        </div>
+        <h2>Decline Offer!</h2>
+        <p>Are you sure you want to delete this offer?</p>
+
+        <div class="modal-actions-row">
+            <button class="btn-modal-cancel" (click)="closeModals()">Cancel</button>
+            <button class="btn-modal-confirm decline" (click)="confirmDecline()">Decline</button>
+        </div>
+    </div>
+</div>
+}

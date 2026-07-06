@@ -1,0 +1,106 @@
+<div class="animate-fade">
+  <h1 class="page-main-title">Checkout</h1>
+
+  <div class="wallet-card">
+    <div class="checkout-header-section">
+      <span class="balance-title">Total Amount</span>
+      <p class="balance-amount">EGP {{ totalAmount | number:'1.2-2' }}</p>
+    </div>
+
+    <div class="card-form-wrapper">
+      <div class="card-form-header"><svg width="24" height="24" viewBox="0 0 36 36" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_2025_28493)">
+            <path
+              d="M22.875 21C22.5766 21 22.2905 21.1185 22.0795 21.3295C21.8685 21.5405 21.75 21.8266 21.75 22.125C21.75 22.4234 21.8685 22.7095 22.0795 22.9205C22.2905 23.1315 22.5766 23.25 22.875 23.25H28.125C28.4234 23.25 28.7095 23.1315 28.9205 22.9205C29.1315 22.7095 29.25 22.4234 29.25 22.125C29.25 21.8266 29.1315 21.5405 28.9205 21.3295C28.7095 21.1185 28.4234 21 28.125 21H22.875Z"
+              fill="#0F172A" />
+            <path
+              d="M2.625 4.5H33.375C34.824 4.5 36 5.676 36 7.125V28.875C36 29.5712 35.7234 30.2389 35.2312 30.7312C34.7389 31.2234 34.0712 31.5 33.375 31.5H2.625C1.92881 31.5 1.26113 31.2234 0.768845 30.7312C0.276562 30.2389 0 29.5712 0 28.875V7.125C0 5.676 1.176 4.5 2.625 4.5ZM2.25 15V28.875C2.25 29.082 2.418 29.25 2.625 29.25H33.375C33.4745 29.25 33.5698 29.2105 33.6402 29.1402C33.7105 29.0698 33.75 28.9745 33.75 28.875V15H2.25ZM2.25 7.125V12.75H33.75V7.125C33.75 7.02554 33.7105 6.93016 33.6402 6.85983C33.5698 6.78951 33.4745 6.75 33.375 6.75H2.625C2.52554 6.75 2.43016 6.78951 2.35984 6.85983C2.28951 6.93016 2.25 7.02554 2.25 7.125Z"
+              fill="#0F172A" />
+          </g>
+          <defs>
+            <clipPath id="clip0_2025_28493">
+              <rect width="36" height="36" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+        Card</div>
+
+      <div class="card-form-body">
+        <div class="form-field-group">
+          <label class="form-field-label">Card Number</label>
+          <div class="card-input-container">
+            <input type="text" [(ngModel)]="cardNumber" placeholder="1234 1234 1234 1234" class="form-field-input">
+            <div class="card-brands-logos">
+              <span class="brand-badge">Pay</span>
+              <span class="brand-badge">🟠🔴</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-fields-row">
+          <div class="form-field-group">
+            <label class="form-field-label">Expiry</label>
+            <input type="text" [(ngModel)]="expiryDate" placeholder="MM / YY" class="form-field-input text-center">
+          </div>
+          <div class="form-field-group">
+            <label class="form-field-label">CVC</label>
+            <input type="password" maxlength="4" [(ngModel)]="cvc" placeholder="CVC"
+              class="form-field-input text-center">
+          </div>
+        </div>
+
+        <div class="form-field-group">
+          <label class="form-field-label">Cardholder Name</label>
+          <input type="text" [(ngModel)]="cardholderName" placeholder="ex. Ahmed Mohamed" class="form-field-input">
+        </div>
+
+        <label class="checkbox-container-label">
+          <input type="checkbox" [(ngModel)]="saveCard">
+          <span class="checkbox-text-label">Save card for future use</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="action-buttons-container">
+      <button (click)="back.emit()" class="btn-secondary">Back</button>
+      <button (click)="onSubmitPayment()" class="btn-primary-dark font-semibold">
+        Pay EGP {{ totalAmount | number:'1.2-2' }}
+      </button>
+    </div>
+  </div>
+
+
+ @if (isProcessing) {
+  <div class="modal-overlay">
+    <div class="status-modal-card animate-scale">
+      <div class="spinner-circle"></div>
+      <h3 class="modal-status-title">Please wait..</h3>
+      <p class="modal-status-subtitle">we're processing your payment.</p>
+    </div>
+  </div>
+}
+
+@if (isSuccess) {
+  <div class="modal-overlay">
+    <div class="status-modal-card animate-scale">
+      <div class="success-icon-circle">
+        <span class="checkmark-stem">✓</span>
+      </div>
+      
+      <h3 class="modal-status-title font-bold">All Done!</h3>
+      <p class="modal-status-subtitle">Your balance has been added successfully.</p>
+      
+      <div class="current-balance-display-box">
+        <span class="balance-box-label">Current Balance</span>
+        <span class="balance-box-value font-bold">EGP {{ currentBalance | number:'1.2-2' }}</span>
+      </div>
+
+      <div class="modal-action-buttons">
+        <button (click)="goToDashboard()" class="btn-modal-secondary">Back To Dashboard</button>
+        <button (click)="goToPayments()" class="btn-modal-primary">Go To Payments</button>
+      </div>
+    </div>
+  </div>
+}
+</div>

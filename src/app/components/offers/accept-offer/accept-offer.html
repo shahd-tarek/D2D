@@ -1,0 +1,76 @@
+@if (isOpen && offer && !isSuccessModalOpen) {
+<div class="modal-backdrop" (click)="closeAll()">
+  <div class="custom-modal-card payment-modal" (click)="$event.stopPropagation()">
+    
+    <div class="modal-success-icon-wrapper">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    </div>
+
+    <h2>Accept Offer</h2>
+    <p class="modal-subtitle">Great! You're one step closer.<br>Please pay the deposit to start chatting with the producer and begin your collaboration.</p>
+
+    <div class="offer-summary-box">
+      <h3>Offer Summary</h3>
+      <div class="summary-product-row">
+        <img [src]="offer.image" [alt]="offer.title" class="summary-img" />
+        <div class="summary-details">
+          <h4>{{ offer.title }}</h4>
+          <span class="producer-tag">Producer #{{ offer.producerId }}</span>
+          <div class="delivery-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <span>Delivery Time: {{ offer.deliveryTime }} Days</span>
+          </div>
+        </div>
+        <div class="summary-price">
+          <span class="price-label">Price</span>
+          <strong>EGP {{ offer.price }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-row">
+      <span>Deposit (50%)</span>
+      <strong>EGP {{ (+offer.price / 2) }}</strong>
+    </div>
+
+    <div class="payment-row balance-row">
+      <div class="balance-left">
+        <span>Your Balance</span>
+        <strong class="balance-amount">EGP 30,200</strong>
+      </div>
+      <button class="btn-add-balance">+ Add</button>
+    </div>
+
+    <div class="modal-actions-row">
+      <button class="btn-modal-cancel" (click)="closeAll()">Cancel</button>
+      <button class="btn-modal-confirm pay-btn" (click)="confirmPayment()">Pay {{ (+offer.price / 2) }}</button>
+    </div>
+
+  </div>
+</div>
+}
+
+@if (isOpen && isSuccessModalOpen) {
+<div class="modal-backdrop" (click)="closeAll()">
+  <div class="custom-modal-card success-done-modal" (click)="$event.stopPropagation()">
+    
+    <div class="big-success-circle">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <h2>All Done!</h2>
+    <strong class="success-highlight">Your deposit has been received.</strong>
+    
+    <p class="success-p">We'll automatically open your chat with the producer as soon as they accept your collaboration request.</p>
+
+    <button class="btn-success-done" (click)="closeAll()">Done</button>
+
+    <p class="warning-footer-text">No worries! If the producer doesn't accept your request within 48 hours, your deposit will be automatically refunded to your wallet.</p>
+  </div>
+</div>
+}

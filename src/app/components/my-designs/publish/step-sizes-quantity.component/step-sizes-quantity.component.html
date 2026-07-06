@@ -1,0 +1,45 @@
+<form [formGroup]="sizesForm" (ngSubmit)="onSubmit()" class="step-form">
+  <div class="form-group">
+    <label class="section-label">Sizes</label>
+    <p class="field-sub">Select available sizes</p>
+    <div class="sizes-checkboxes">
+      @for (size of allSizes; track size) {
+        <label class="checkbox-label">
+          <input type="checkbox" [checked]="selectedSizes.includes(size)" (change)="onSizeToggle(size)">
+          <span class="custom-checkbox"></span>
+          {{ size }}
+        </label>
+      }
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Size chart (Optional)</label>
+    <div class="upload-zone">
+      <div class="upload-icon">&#8682;</div>
+      <p class="upload-title">Upload Image Or File</p>
+      <p class="upload-sub">PNG, JPG Or PDF Up To 5MB</p>
+      <button type="button" class="btn-upload-small">Upload</button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Quantity (pcs)</label>
+    <input type="number" formControlName="quantity" placeholder="Enter required quantity">
+    <p class="field-info-hint">Minimum order quantity: 150 pieces</p>
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Target Price</label>
+    <div class="price-input-wrapper">
+      <input type="text" formControlName="targetPrice" placeholder="Enter your target price per piece">
+      <span class="currency-badge">EGP</span>
+    </div>
+    <p class="field-info-hint">Producers may submit different offers based on materials and production requirements.</p>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn-prev" (click)="onPrevious()">&lt; Previous</button>
+    <button type="submit" class="btn-next" [disabled]="sizesForm.invalid">Next &gt;</button>
+  </div>
+</form>

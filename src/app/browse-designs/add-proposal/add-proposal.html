@@ -1,0 +1,158 @@
+<div class="proposal-page">
+  <header class="back-header">
+    <button class="btn-back" (click)='goBack()'>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="back-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+      </svg>
+      Proposal
+    </button>
+  </header>
+
+  <div class="main-content">
+    <aside class="left-panel">
+      <div class="product-preview-card">
+        <img [src]="designDetails.image" alt="Product Image" class="product-img">
+      </div>
+
+      <div class="info-box">
+        <h2 class="section-title">Description</h2>
+        <p class="description-text">{{ designDetails.description }}</p>
+      </div>
+
+      <div class="info-box">
+        <h2 class="section-title">Specifications</h2>
+        <table class="specs-table">
+          <tr><td>Design Name</td><td class="font-bold">{{ designDetails.name }}</td></tr>
+          <tr><td>Category</td><td class="font-bold">{{ designDetails.category }}</td></tr>
+          <tr><td>Target Audience</td><td class="font-bold">{{ designDetails.targetAudience }}</td></tr>
+          <tr><td>Gender</td><td class="font-bold">{{ designDetails.gender }}</td></tr>
+          <tr><td>Season</td><td class="font-bold">{{ designDetails.season }}</td></tr>
+          <tr>
+            <td>Colors</td>
+            <td>
+              <div class="color-dots">
+                @for (color of designDetails.colors; track color) {
+                  <span class="color-dot" [style.background-color]="color" [class.white-border]="color === '#ffffff'"></span>
+                }
+              </div>
+            </td>
+          </tr>
+          <tr><td>Materials</td><td class="font-bold">{{ designDetails.materials }}</td></tr>
+          <tr><td>Quantity</td><td class="font-bold">{{ designDetails.quantity }} pcs</td></tr>
+          <tr><td>Target Price</td><td class="font-bold">{{ designDetails.targetPrice }}</td></tr>
+          <tr><td>Sizes</td><td class="font-bold">{{ designDetails.sizes }}</td></tr>
+          <tr><td>Printing</td><td class="font-bold">{{ designDetails.printing }}</td></tr>
+        </table>
+      </div>
+    </aside>
+
+    <main class="right-panel">
+      <p class="intro-instruction">Introduce yourself and explain how you can help bring the design to life.</p>
+
+      <form #f="ngForm" (ngSubmit)="submitProposal()">
+        <div class="form-group">
+          <label>Bio</label>
+          <div class="textarea-container">
+            <textarea placeholder="Briefly introduce yourself and your experience..." maxlength="300" [(ngModel)]="proposalForm.bio" name="bio"></textarea>
+            <span class="char-count">{{ proposalForm.bio.length }}/300</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Manufacturing Approach</label>
+          <div class="textarea-container">
+            <textarea placeholder="Describe how you will produce this design..." maxlength="1000" class="large-textarea" [(ngModel)]="proposalForm.manufacturingApproach" name="approach"></textarea>
+            <span class="char-count">{{ proposalForm.manufacturingApproach.length }}/1000</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Material & Fabric Suggestion <span class="optional">(optional)</span></label>
+          <div class="textarea-container">
+            <textarea placeholder="Suggest suitable fabrics or materials" maxlength="300" [(ngModel)]="proposalForm.materialSuggestion" name="suggestion"></textarea>
+            <span class="char-count">{{ proposalForm.materialSuggestion.length }}/300</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="main-label">Enter Your Price</label>
+          <div class="price-row">
+            <div class="price-field">
+              <label>Price Per Piece</label>
+              <div class="input-with-currency">
+                <input type="number" placeholder="EGP" [(ngModel)]="proposalForm.pricePerPiece" name="pricePiece" (input)="onPriceChange()">
+              </div>
+            </div>
+            <div class="price-field">
+              <label>Total Price for {{ designDetails.quantity }} Pieces</label>
+              <div class="input-with-currency">
+                <input type="number" placeholder="EGP" [(ngModel)]="proposalForm.totalPrice" name="totalPrice" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Delivery Time</label>
+          <input type="text" placeholder="EXP: 15-30 Days" class="standard-input" [(ngModel)]="proposalForm.deliveryTime" name="delivery">
+        </div>
+
+        <div class="form-group">
+          <label>Services Included</label>
+          <div class="services-container">
+            @for (service of proposalForm.services; track service.text) {
+              <div class="service-item">
+                <span class="check-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="green-check">
+                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <span class="service-text">{{ service.text }}</span>
+              </div>
+            }
+            
+            <div class="service-input-row">
+              <span class="circle-bullet"></span>
+              <input type="text" placeholder="Add One Specification Per Item, Press Enter Or Click Outside To Add Another. Maximum 50 Characters Per Item." maxlength="50" [(ngModel)]="newServiceText" name="newService" (keydown.enter)="$event.preventDefault(); addService()" (blur)="addService()">
+              <span class="char-count-inline">{{ newServiceText.length }}/50</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <button type="button" class="btn-footer-secondary" (click)="goBack()">Back</button>
+          <button type="submit" class="btn-footer-primary" (click)="submitProposal()">Submit Proposal</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+@if (isModalOpen) {
+  <div class="modal-overlay">
+    <div class="modal-card">
+      <button class="close-btn" (click)="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="success-icon-container">
+        <div class="success-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          </svg>
+        </div>
+      </div>
+
+      <h3 class="modal-title">Proposal Submitted!</h3>
+      <p class="modal-description">
+        Your proposal has been sent to Customer #1013. You will be notified if they accept your proposal.
+      </p>
+
+      <div class="modal-actions">
+        <button class="btn-modal-primary" (click)="goToProposals()">Go To My Proposals</button>
+        <button class="btn-modal-secondary" (click)="backToBrowse()">Back To Browse Designs</button>
+      </div>
+    </div>
+  </div>
+}

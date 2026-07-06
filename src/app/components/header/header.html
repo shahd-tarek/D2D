@@ -1,0 +1,52 @@
+<header class="navbar">
+
+  <img src="logo.png" alt="logo">
+
+
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <nav class="nav-links">
+    <a href="#" class="active-link">Dashboard</a>
+    <a href="#">Start Design</a>
+    <a href="#">My Designs</a>
+    <a href="#">Offers</a>
+    <a href="#">Chats</a>
+  </nav>
+
+  <div class="user-actions">
+    <app-notifications-dropdown></app-notifications-dropdown>
+
+    <div class="profile-container">
+      <div class="profile-trigger">
+        <img src="avatar.jpg" alt="Ahmed" class="avatar-img" />
+        <span class="user-name">Ahmed</span>
+        <span class="arrow-down"><svg width="24" height="24" viewBox="0 0 26 26" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.5834 9.75L13.0001 17.3333L5.41675 9.75" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </span>
+      </div>
+
+      <div class="dropdown-list">
+        <a href="#">Profile</a>
+        <a href="#">Setting</a>
+        <a href="#">Balance</a>
+        <a href="#">Help & Support</a>
+        <a href="#" class="logout-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="icon-logout">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+          </svg>
+          Log out
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

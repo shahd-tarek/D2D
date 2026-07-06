@@ -1,0 +1,58 @@
+<form [formGroup]="colorsForm" (ngSubmit)="onSubmit()" class="step-form">
+  <div class="form-group">
+    <label class="section-label">Colors</label>
+    <p class="field-sub">Choose one or Multiple color</p>
+    <div class="colors-grid">
+      @for (color of availableColors; track color) {
+        <button type="button" 
+                class="color-circle" 
+                [style.background-color]="color"
+                [class.selected]="selectedColors.includes(color)"
+                (click)="toggleColor(color)">
+        </button>
+      }
+      <button type="button" class="btn-add-color">+</button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Materials</label>
+    
+    <div class="sub-field">
+      <label>Main Fabric</label>
+      <input type="text" formControlName="mainFabric" placeholder="EXP: Cotton">
+    </div>
+
+    <div class="sub-field">
+      <label>GSM</label>
+      <input type="text" formControlName="gsm" placeholder="EXP: 320">
+    </div>
+
+    <div class="sub-field">
+      <label>Composition</label>
+      <input type="text" formControlName="composition" placeholder="EXP: 80% Cotton, 20% Polyester">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Printing Type</label>
+    <div class="select-wrapper">
+      <select formControlName="printingType">
+        <option value="" disabled>Select option</option>
+        <option value="Screen Print">Screen Print</option>
+        <option value="DTF Print">DTF Print</option>
+        <option value="DTG Print">DTG Print</option>
+        <option value="Sublimation">Sublimation</option>
+        <option value="Heat Transfer">Heat Transfer</option>
+        <option value="Embroidery">Embroidery</option>
+        <option value="None">None</option>
+        <option value="Not Sure">Not Sure</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn-prev" (click)="onPrevious()">&lt; Previous</button>
+    <button type="submit" class="btn-next" [disabled]="colorsForm.invalid">Next &gt;</button>
+  </div>
+</form>

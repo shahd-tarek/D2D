@@ -1,0 +1,122 @@
+<app-header></app-header>
+
+@if (currentView === 'list') {
+<div class="container">
+  <header class="header-section">
+    <div>
+      <h1 class="main-title">Browse Designs</h1>
+      <p class="subtitle">Explore design ideas shared by customers and send a proposal to collaborate.</p>
+    </div>
+  </header>
+
+  <div class="toolbar-section">
+    <div class="left-toolbar">
+      <div class="search-box">
+        <span class="search-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.603Z" />
+          </svg>
+        </span>
+        <input type="text" placeholder="Search">
+      </div>
+      
+      <div class="filters-container">
+        <button class="filter-chip" [class.active]="selectedStatus === 'all'" (click)="selectStatus('all')">All (23)</button>
+        <button class="filter-chip" [class.active]="selectedStatus === 'saved'" (click)="selectStatus('saved')">Saved (5)</button>
+        <button class="filter-chip" [class.active]="selectedStatus === 'proposed'" (click)="selectStatus('proposed')">Proposed (3)</button>
+      </div>
+    </div>
+
+    <div class="right-toolbar">
+      <div class="sort-container">
+        <div class="sort-dropdown" (click)="toggleSortDropdown()">
+          <span>Sort By: <b style="text-transform: capitalize;">{{ sortBy.replace('-', ' ') }}</b></span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="arrow-icon" [class.rotated]="isSortOpen">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+          </svg>
+        </div>
+
+        @if (isSortOpen) {
+          <ul class="sort-menu">
+            <li [class.active]="sortBy === 'newest'" (click)="selectSort('newest')">Newest</li>
+            <li [class.active]="sortBy === 'lowest-price'" (click)="selectSort('lowest-price')">Lowest Price</li>
+            <li [class.active]="sortBy === 'highest-price'" (click)="selectSort('highest-price')">Highest Price</li>
+            <li [class.active]="sortBy === 'lowest-pieces'" (click)="selectSort('lowest-pieces')">Lowest Pieces</li>
+            <li [class.active]="sortBy === 'highest-pieces'" (click)="selectSort('highest-pieces')">Highest Pieces</li>
+          </ul>
+        }
+      </div>
+    </div>
+  </div> <div class="designs-grid">
+    @for (design of paginatedDesigns; track design.id) {
+    <div class="design-card">
+      <div class="image-container">
+        <button class="bookmark-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+          </svg>
+        </button>
+        <img [src]="design.image || 'assets/sweatshirt.png'" [alt]="design.name" class="product-image">
+      </div>
+      
+      <div class="card-details">
+        <h3 class="product-title">Oversized Sweatshirt</h3>
+        <p class="product-description">
+          I'm looking for a manufacturer who can create this oversized sweatshirt with high-quality fabric and perfect finishing.
+        </p>
+        
+        <div class="meta-row">
+          <span class="customer-id">Customer #1036</span>
+          <span class="time-ago">2 days ago</span>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-item">
+            <span class="label">Price:</span>
+            <span class="value font-bold">EGP 400/pc</span>
+          </div>
+          <div class="info-item text-right">
+            <span class="label">Quantity:</span>
+            <span class="value font-bold">175 pc</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-proposal" (click)="onViewDesign()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+            </svg>
+            View & Make Proposal
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  @if (totalPages > 1) {
+  <footer class="pagination-container">
+    <button class="page-arrow" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="previous-page-arrow">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    </button>
+    
+    <span class="page-number active">1</span>
+    <span class="page-number">2</span>
+    <span class="page-number">3</span>
+    <span class="page-dots">...</span>
+    
+    <button class="page-arrow" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="next-page-arrow">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+      </svg>
+    </button>
+  </footer>
+  }
+</div>
+} @else if (currentView === 'proposal') {
+  <app-add-proposal></app-add-proposal>
+}
+
+<app-footer></app-footer>

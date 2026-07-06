@@ -1,0 +1,98 @@
+<div class="container">
+  <header class="header-section">
+    <div>
+      <h1 class="main-title">My Designs</h1>
+      <p class="subtitle">Keep track of all your designs</p>
+    </div>
+    <button class="btn-new-design-top">+ New Design</button>
+  </header>
+
+  <div class="filters-container">
+    <button class="filter-chip active">All (23)</button>
+    <button class="filter-chip">Draft (4)</button>
+    <button class="filter-chip">Completed (3)</button>
+    <button class="filter-chip">In Production (2)</button>
+    <button class="filter-chip">Pending (1)</button>
+  </div>
+
+  <div class="designs-grid">
+    <div class="design-card">
+      <div class="image-container">
+        <span class="badge draft">Draft</span>
+        <img src="shirt.png" alt="Casual Streetwear" class="product-image">
+      </div>
+      <div class="card-details">
+        <h3 class="product-title">Casual Streetwear</h3>
+        <p class="product-date">May 25, 2026</p>
+        <div class="card-actions justify-end">
+          <button class="btn-secondary">Delete</button>
+          <button class="btn-primary" (click)="openPublish()">Publish</button>      
+        </div>
+      </div>
+    </div>
+
+    <div class="design-card">
+      <div class="image-container">
+        <span class="badge in-progress">In Progress</span>
+        <img src="shirt.png" alt="Casual Streetwear" class="product-image">
+      </div>
+      <div class="card-details">
+        <h3 class="product-title">Casual Streetwear</h3>
+        <p class="product-date">May 25, 2026</p>
+        <div class="card-actions justify-end">
+          <button class="btn-primary-dark">View</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="design-card">
+      <div class="image-container">
+        <span class="badge completed">Completed</span>
+        <img src="shirt.png" alt="Casual Streetwear" class="product-image">
+      </div>
+      <div class="card-details">
+        <h3 class="product-title">Casual Streetwear</h3>
+        <p class="product-date">May 25, 2026</p>
+        <div class="card-actions justify-end">
+          <button class="btn-secondary">Delete</button>
+          <button class="btn-primary-dark" (click)="onViewDesign()">View</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="design-card">
+      <div class="image-container">
+        <span class="badge open">Open</span>
+        <img src="shirt.png" alt="Casual Streetwear" class="product-image">
+      </div>
+      <div class="card-details">
+        <h3 class="product-title">Casual Streetwear</h3>
+        <p class="product-date">May 25, 2026</p>
+        <div class="card-actions">
+          <button class="btn-secondary">Delete</button>
+          <button class="btn-secondary">Draft</button>
+          <button class="btn-primary-dark">Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-new-card">
+      <div class="add-content">
+        <div class="icon-circle">
+          <span class="plus-icon">+</span>
+        </div>
+        <h3>Start new design</h3>
+        <p>Describe your idea and let AI bring it to life</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="pagination-container">
+    <button class="page-arrow">&lt;</button>
+    <span class="page-number active">1</span>
+    <span class="page-number">2</span>
+    <span class="page-number">3</span>
+    <span class="page-dots">...</span>
+    <button class="page-arrow">&gt;</button>
+  </footer>
+</div>

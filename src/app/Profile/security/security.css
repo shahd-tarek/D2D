@@ -1,0 +1,116 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px 20px;
+  background-color: #FBFAF8; /* لون الخلفية الدافئ */
+}
+
+.security-container {
+  padding-top: 50px;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  background-color: #FBFAF8;
+}
+
+/* Back Button */
+.back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4a5568;
+  position: absolute;
+  top: 100px; 
+  left: 40px;  
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.back-btn:hover {
+  background-color: #edf2f7;
+}
+
+/* Header */
+.security-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-top: 20px;
+}
+
+.main-shield-icon {
+  color: #1a202c;
+  margin-bottom: 16px;
+}
+
+.security-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+.security-header .subtitle {
+  font-size: 1.1rem;
+  color: #464646;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Main Card */
+.security-card {
+  background: #F8F5F3; /* نفس درجة لون كارت البريفاسي */
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.236);
+}
+
+/* Security Items */
+.security-item {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.security-item:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+
+.item-icon {
+  color: #2d3748;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.item-content h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+.item-content p {
+  font-size: 0.95rem;
+  color: #464646;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* Footer note inside card */
+.card-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #edf2f7;
+}
+
+.card-footer p {
+  font-size: 0.85rem;
+  color: #718096;
+}

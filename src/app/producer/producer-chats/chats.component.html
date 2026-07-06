@@ -1,0 +1,291 @@
+<app-header></app-header>
+<h1 class="page-main-title">Chats</h1>
+
+<div class="chats-workspace-wrapper" id="chatsWorkspace" [class.mobile-chat-view-active]="activeChatId !== null">
+  <aside class="conversations-sidebar">
+    <div class="sidebar-search-header">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+          stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Search Chat" [(ngModel)]="searchQuery"
+          aria-label="Search through conversations" />
+      </div>
+
+      <nav class="filter-tabs-row">
+        <button type="button" class="tab-item" [class.active]="activeFilter === 'all'"
+          (click)="setFilter('all')">All</button>
+        <button type="button" class="tab-item" [class.active]="activeFilter === 'unread'"
+          (click)="setFilter('unread')">Unread</button>
+        <button type="button" class="tab-item" [class.active]="activeFilter === 'completed'"
+          (click)="setFilter('completed')">Completed</button>
+      </nav>
+    </div>
+
+    <div class="conversations-scroll-feed">
+      <div *ngFor="let chat of filteredChats()" class="conversation-item-card"
+        [class.selected-active]="chat.id === activeChatId" [class.unread-state]="chat.unread"
+        (click)="selectChat(chat.id)">
+        <div class="item-avatar-box">
+          <img [src]="chat.avatar" [alt]="chat.title" />
+        </div>
+        <div class="item-details-content">
+          <div class="details-top-row">
+            <h3>{{ chat.title }}</h3>
+            <span *ngIf="chat.status" class="sidebar-status-badge">
+        {{ chat.status }}
+      </span>
+            <span class="timestamp-label">{{ chat.timestamp }}</span>
+          </div>
+          <span class="customer-tag">{{ chat.customer }}</span>
+          <p class="message-preview-text">
+            {{ chat.lastMessage }}
+          </p>
+        </div>
+        <div *ngIf="chat.unread" class="unread-badge-dot"></div>
+      </div>
+      <div *ngIf="filteredChats().length === 0" class="sidebar-empty-state"
+        style="padding: 40px 20px; text-align: center;">
+        <div class="empty-icon-wrapper"
+          style="margin-bottom: 20px; opacity: 0.6; display: flex; justify-content: center;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            style="color: var(--primary-brown);">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px;">No Chats Yet</h4>
+        <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+          Accept an order request to start chatting with your customer.
+        </p>
+        <a routerLink="/customer/start-design" class="btn-pill-action"
+          style="display: inline-block; text-decoration: none; font-size: 0.8rem; padding: 8px 20px; background-color: var(--primary-brown); color: #fff; border-radius: 20px; font-weight: 600;">Start
+          Design</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="chat-display-canvas" id="chatDisplayCanvas">
+    <!-- Empty view -->
+    <div *ngIf="!activeChatId" class="canvas-empty-view-wrapper" id="emptyCanvasView">
+      <div class="graphic-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+        </svg>
+      </div>
+      <h2 class="canvas-placeholder-text">Open a conversation</h2>
+    </div>
+
+    <!-- Active Chat View -->
+    <div *ngIf="activeChatId && activeChat" class="active-chat-thread-container" id="activeChatThread">
+      <header class="chat-thread-subheader">
+        <!-- Back button on mobile -->
+        <button type="button" class="btn-more-options mobile-back-btn" (click)="goBackMobile()">
+          ←
+        </button>
+        <div class="header-meta-details">
+          <h2 class="active-customer-title">{{ activeChat.customer }}</h2>
+          <span *ngIf="activeChat.status" class="status-pill-badge" style="display: inline-block;">{{ activeChat.status
+            }}</span>
+        </div>
+
+        <div class="options-menu-anchor" (click)="$event.stopPropagation()">
+          <div class="status-dropdown-wrapper">
+            <button type="button" class="btn-update-status" id="statusToggleBtn" (click)="toggleStatusPopover($event)">
+              {{ currentStatus }}
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+
+            <div class="context-dropdown-popover status-popover" [class.popover-opened]="showStatusPopover"
+              id="statusPopover">
+              <div class="popover-header">Status</div>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Order Confirmed')">Order
+                Confirmed</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Materials Prepared')">Materials
+                Prepared</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Pattern Making')">Pattern
+                Making</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Cutting Fabric')">Cutting
+                Fabric</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Sewing In Progress')">Sewing In
+                Progress</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Quality Check')">Quality
+                Check</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Ready For Delivery')">Ready For
+                Delivery</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Shipped')">Shipped</button>
+              <button type="button" class="dropdown-item-link" (click)="updateStatus('Delivered')">Delivered</button>
+            </div>
+          </div>
+          <button type="button" class="btn-more-options" id="menuToggleBtn" (click)="togglePopover($event)"
+            aria-label="More options menu">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="5" r="1.5"></circle>
+              <circle cx="12" cy="12" r="1.5"></circle>
+              <circle cx="12" cy="19" r="1.5"></circle>
+            </svg>
+          </button>
+
+          <div class="context-dropdown-popover" [class.popover-opened]="showPopover" id="optionsPopover">
+            <button type="button" class="dropdown-item-link" id="actionEndCollab" (click)="openModal('collab')">
+              End Collaboration
+            </button>
+            <button type="button" class="dropdown-item-link">
+              Design Details
+            </button>
+            <button type="button" class="dropdown-item-link">
+              Report Producer
+            </button>
+            <button type="button" class="dropdown-item-link" id="actionCloseChat" (click)="openModal('close')">
+              Close Chat
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="thread-messages-scrollbox" (click)="closePopover()">
+        <div *ngFor="let msg of activeChat.messages" class="message-row" [class.user-type]="msg.sender === 'user'"
+          [class.producer-type]="msg.sender === 'producer'">
+          <div class="bubble-message-content">
+            <p>{{ msg.text }}</p>
+            <span class="message-time-stamp">{{ msg.time }}</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="thread-console-footer-bar">
+        <form (ngSubmit)="sendMessage()" style="width: 100%; display: flex;">
+          <div class="console-input-track-wrapper">
+            <input type="text" name="chatMsg" placeholder="Type a message" [(ngModel)]="newMessageText"
+              autocomplete="off" />
+            <button type="submit" class="btn-send-message" [disabled]="!newMessageText.trim()">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop-blur" [class.backdrop-active]="activeModal !== null" (click)="closeAllModals()">
+
+
+
+  <div class="modal-surface-card" [class.modal-active]="activeModal === 'confirmStatus'" (click)="$event.stopPropagation()">
+    <div class="warning-alert-icon-area">
+      <svg viewBox="0 0 24 24" width="70" height="70" fill="none" stroke="#f2b441" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+        <line x1="12" y1="9" x2="12" y2="13" stroke-width="2.5"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17" stroke-width="3"></line>
+      </svg>
+    </div>
+    <h3 class="modal-title-text" style="font-size: 1.25rem; font-weight: 700; margin-top: 15px;">Change Order Status?</h3>
+    <p class="modal-body-description text-center" style="font-size: 0.85rem; color: #555; max-width: 250px; margin: 10px auto 20px auto; line-height: 1.4;">
+      Are you sure you want to update the order status? This change will be visible to the customer.
+    </p>
+    <div class="modal-buttons-layout-row">
+      <button type="button" class="btn-modal-action action-secondary" (click)="closeAllModals()">
+        Cancel
+      </button>
+      <button type="button" class="btn-modal-action action-primary" (click)="confirmStatusUpdate()">
+        Update Status
+      </button>
+    </div>
+  </div>
+
+
+  <div class="modal-surface-card" [class.modal-active]="activeModal === 'statusSuccess'" (click)="$event.stopPropagation()">
+    <button type="button" class="modal-corner-close-btn" (click)="closeAllModals()">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="success-alert-icon-area" style="margin-top: 10px;">
+      <svg viewBox="0 0 100 100" width="75" height="75">
+        <circle cx="50" cy="50" r="40" fill="#438956" />
+        <path d="M35 50 L45 60 L65 40" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    
+    <h3 class="modal-title-text" style="font-size: 1.25rem; font-weight: 700; margin-top: 15px;">Status Updated!</h3>
+    <p class="modal-body-description text-center" style="font-size: 0.85rem; color: #555; max-width: 260px; margin: 10px auto 20px auto; line-height: 1.4;">
+      The order status has been updated successfully, and the customer has been notified.
+    </p>
+    <div class="modal-buttons-layout-row container-full-btn" style="width: 100%;">
+      <button type="button" class="btn-modal-action action-primary" style="width: 100%;" (click)="closeAllModals()">
+        Done
+      </button>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Modal End Collab -->
+  <div class="modal-surface-card" [class.modal-active]="activeModal === 'collab'" (click)="$event.stopPropagation()">
+    <div class="warning-alert-icon-area">
+      <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#f6be4e" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 22 22 2 22"></polygon>
+        <line x1="12" y1="9" x2="12" y2="13"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+    </div>
+    <h3 class="modal-title-text">End Collaboration</h3>
+    <p class="modal-body-description">
+      Ending the collaboration requires confirmation from both you and the
+      producer.
+    </p>
+    <div class="modal-buttons-layout-row">
+      <button type="button" class="btn-modal-action action-secondary" (click)="closeAllModals()">
+        Cancel
+      </button>
+      <button type="button" class="btn-modal-action action-primary" (click)="submitCollabEnd()">
+        Submit Request
+      </button>
+    </div>
+    <p class="modal-footnote-notice">
+      Once both requests are received, your deposit will be refunded within
+      2 business days.
+    </p>
+  </div>
+
+  <!-- Modal Close Chat -->
+  <div class="modal-surface-card" [class.modal-active]="activeModal === 'close'" (click)="$event.stopPropagation()">
+    <button type="button" class="modal-corner-close-btn" (click)="closeAllModals()">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <h3 class="modal-title-text heading-spaced">Your feedback matters!</h3>
+    <p class="modal-body-description text-center">
+      Please take a moment to rate your experience with the producer.
+    </p>
+    <div class="rating-stars-interactive-row" id="ratingStarsRow">
+      <span class="star-unit" [class.active]="ratingValue >= 1" (click)="setRating(1)">★</span>
+      <span class="star-unit" [class.active]="ratingValue >= 2" (click)="setRating(2)">★</span>
+      <span class="star-unit" [class.active]="ratingValue >= 3" (click)="setRating(3)">★</span>
+      <span class="star-unit" [class.active]="ratingValue >= 4" (click)="setRating(4)">★</span>
+      <span class="star-unit" [class.active]="ratingValue >= 5" (click)="setRating(5)">★</span>
+    </div>
+    <div class="modal-buttons-layout-row container-full-btn">
+      <button type="button" class="btn-modal-action action-primary" (click)="submitRatingFeedback()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
