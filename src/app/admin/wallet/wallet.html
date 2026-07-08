@@ -1,1 +1,111 @@
-<p>wallet works!</p>
+<main class="main-content">
+  <header class="content-header">
+    <div class="header-title">
+      <h2>Wallet</h2>
+      <p>Manage platform earnings, transactions, and withdrawal </p>
+    </div>
+  </header>
+
+  <div class="wallet-container">
+    @if (currentPage === 'wallet') {
+      <div class="page-wrapper-custom">
+        
+        <div class="stats-row">
+          <div class="wallet-card main-balance-card">
+            <h2 class="balance-title">Total Available Balance</h2>
+            <p class="balance-amount">EGP {{ balance | number:'1.2-2' }}</p>
+            <span class="card-hint">Ready for withdrawal</span>
+          </div>
+
+          <div class="wallet-card stats-sub-card">
+            <h3 class="stats-title">Total Earnings</h3>
+            <p class="stats-amount">EGP 25,700.00</p>
+            <span class="card-hint">Total commission earned.</span>
+          </div>
+
+          <div class="wallet-card stats-sub-card">
+            <h3 class="stats-title">Total Withdrawn</h3>
+            <p class="stats-amount">EGP 13,250.00</p>
+            <span class="card-hint">Successfully withdrawn.</span>
+          </div>
+        </div>
+
+        <div class="wallet-card withdrawal-card">
+          <label class="input-label">Enter Amount</label>
+          <div class="form-group-row">
+            <div class="input-wrapper">
+              <span class="currency-prefix">EGP</span>
+              <input 
+                type="number" 
+                [(ngModel)]="inputAmount"
+                placeholder="0.00" 
+                class="amount-input"
+              />
+            </div>
+            <button (click)="onWithdraw()" class="btn-withdraw">
+              Withdraw
+            </button>
+          </div>
+          <span class="min-withdraw-text">Minimum Withdrawal: EGP 100.000</span>
+        </div>
+
+        <div class="wallet-card table-card">
+          <div class="table-responsive">
+            <table class="transactions-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tx of transactions">
+                  <td class="tx-id">#{{ tx.id }}</td>
+                  <td class="tx-type-cell">
+                    <span class="type-text">{{ tx.type }}</span>
+                  </td>
+                  <td class="tx-desc">{{ tx.description }}</td>
+                  <td class="tx-amount">
+                    <span [ngClass]="tx.type === 'Credit' ? 'amount-positive' : 'amount-negative'">
+                     {{ tx.type === 'Credit' ? '+ ' : '- ' }}{{ tx.amount | number:'1.2-2' }} EGP
+                    </span>
+                     </td>
+                  <td class="tx-date">{{ tx.date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-container">
+            <button class="pager-btn"><</button>
+            <button class="pager-num active">1</button>
+            <button class="pager-num">2</button>
+            <button class="pager-num">3</button>
+            <span class="pager-dots">...</span>
+            <button class="pager-btn">></button>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    @if (currentPage === 'add-balance') {
+      <app-add-balance 
+        [balance]="balance" 
+        [amount]="inputAmount"
+        (back)="navigateTo('wallet')"
+        (continue)="navigateTo('checkout')">
+      </app-add-balance>
+    }
+
+    @if (currentPage === 'checkout') {
+      <app-checkout 
+        [amount]="inputAmount"
+        (back)="navigateTo('add-balance')">
+      </app-checkout>
+    }
+  </div>
+</main>

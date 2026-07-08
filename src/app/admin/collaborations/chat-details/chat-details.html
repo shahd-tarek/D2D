@@ -1,0 +1,134 @@
+<main class="main-content collaboration-details-page">
+    <header class="content-header-details">
+        <button class="back-to-collaborations-btn" (click)="onBackClick()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back To Collaborations
+        </button>
+    </header>
+
+    @if (isLoading) {
+        <div style="text-align: center; padding: 50px; color: #603319;">
+            <p>Loading chat details...</p>
+        </div>
+    } @else if (chatData) {
+        <div class="collaboration-grid">
+            
+            <section class="chat-section-container">
+                <div class="product-header-card">
+                    <div class="product-info-wrapper">
+                        <div class="product-avatar-container">
+                            <img [src]="chatData.designImages?.[0] || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=100'" 
+                                 class="product-avatar-img" alt="Design Image" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                        </div>
+                        <div class="product-text" style="margin-left: 10px;">
+                            <h3>{{ chatData.offerName || 'No Name' }}</h3>
+                            <p class="product-id">ID: #{{ chatData.designId ? chatData.designId.substring(0,7) : 'N/A' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-messages-area">
+                    @for (msg of chatData.messages; track msg.sentAt) {
+                        <div class="chat-message-block">
+                            <div class="user-meta">
+                                <img [src]="msg.profileImage || 'Unknown-Person.png'" class="chat-user-avatar" [alt]="msg.name">
+                                <span class="chat-user-name">{{ msg.name }}</span>
+                            </div>
+                            
+                            @for (contentItem of msg.content; track contentItem) {
+                                @if (contentItem.trim()) {
+                                    @if (isImageUrl(contentItem)) {
+                                        <div class="message-bubble image-bubble" style="margin-top: 4px;">
+                                            <img [src]="contentItem" alt="Sent Image" style="max-width: 200px; border-radius: 8px; display: block;">
+                                        </div>
+                                    } @else {
+                                        <div class="message-bubble text-bubble" style="margin-top: 4px;">
+                                            {{ contentItem }}
+                                        </div>
+                                    }
+                                }
+                            }
+                            <span class="message-timestamp">{{ msg.sentAt | date:'MMM d, h:mm a' }}</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="read-only-footer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    This is a read-only view
+                </div>
+            </section>
+
+            <section class="manage-collaboration-container">
+                <h2>Manage Collaboration</h2>
+                <div class="manage-card-body">
+                    <h3 class="section-card-title">End Requests</h3>
+                    <div class="request-info-box">
+                        <p><strong>Requested By:</strong> Customer</p>
+                        <p><strong>Requested On:</strong> Jun 21, 08:30 PM</p>
+                    </div>
+
+                    <div class="message-to-users-section">
+                        <label class="section-card-title">Message to Users</label>
+                        <div class="textarea-wrapper">
+                            <textarea [(ngModel)]="messageToUsers" placeholder="Write a message explaining..." maxlength="500"></textarea>
+                            <span class="char-counter">{{ messageToUsers.length }}/500</span>
+                        </div>
+                        <div class="send-btn-wrapper">
+                            <button class="btn-send-message">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="end-action-wrapper">
+                        <button class="btn-end-collaboration" (click)="openEndConfirmation()">End Collaboration</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+
+    @if (isEndConfirmationModalVisible) {
+    <div class="modal-overlay">
+        <div class="modal-card confirmation-card">
+            <div class="modal-icon warning-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f4b400" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+            </div>
+            <h2>End Collaboration</h2>
+            <p>Are you sure you want to end this Collaboration?</p>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" (click)="closeEndConfirmation()">Cancel</button>
+                <button class="btn-modal-confirm" (click)="confirmEndCollaboration()">End</button>
+            </div>
+        </div>
+    </div>
+    }
+
+    @if (isSuccessModalVisible) {
+    <div class="modal-overlay">
+        <div class="modal-card success-card">
+            <button class="modal-close-x" (click)="closeSuccessModal()">&times;</button>
+            <div class="modal-icon success-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#0f9d58" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h2>Collaboration Ended!</h2>
+            <p>The collaboration has been ended successfully.</p>
+            <div class="modal-actions full-width">
+                <button class="btn-modal-done" (click)="closeSuccessModal()">Done</button>
+            </div>
+        </div>
+    </div>
+    }
+</main>

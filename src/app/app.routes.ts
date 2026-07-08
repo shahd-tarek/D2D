@@ -17,43 +17,47 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { UserDetails } from './admin/users/user-details/user-details';
 import { Collaborations } from './admin/collaborations/collaborations';
 import { SupportTickets } from './admin/support-tickets/support-tickets';
+import { Wallet } from './admin/wallet/wallet';
+import { Transactions } from './admin/transactions/transactions';
 
 export const routes: Routes = [
- {
+  {
     path: 'admin',
     component: AdminLayout,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, 
-      { path: 'dashboard', component: AdminDashboardComponent }, 
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'users', component: Users },
       { path: 'users/:id', component: UserDetails },
       { path: 'collaborations', component: Collaborations },
       { path: 'support', component: SupportTickets },
+      { path: 'wallet', component: Wallet },
+      { path: 'transactions', component: Transactions }
     ]
   },
 
   { path: 'profile', component: Profile },
-  
+
   { path: 'privacy', component: Privacy },
-  
+
   { path: 'security', component: Security },
   { path: 'contact-support', component: ContactSupport },
   {
-        path: 'notifications',
-        loadComponent: () => 
-          import('./components/Notification/notification.component/notification.component').then((m) => m.NotificationComponent),
-      },
-{ path: 'my-designs', component: MyDesignsComponent },
-{ path: 'design-view', component: DesignViewComponent },
-{ path: 'add-proposal', component: AddProposal },
-{
+    path: 'notifications',
+    loadComponent: () =>
+      import('./components/Notification/notification.component/notification.component').then((m) => m.NotificationComponent),
+  },
+  { path: 'my-designs', component: MyDesignsComponent },
+  { path: 'design-view', component: DesignViewComponent },
+  { path: 'add-proposal', component: AddProposal },
+  {
     path: 'publish',
     component: PublishLayoutComponent,
     children: [
       { path: 'details', component: PuplishDesignComponent },          // الخطوة 2
       { path: 'colors-materials', component: StepColorsMaterialsComponent }, // الخطوة 3
       { path: 'sizes-quantity', component: StepSizesQuantityComponent },     // الخطوة 4
-      { path: 'review', component:  StepReviewComponent },             // الخطوة 5
+      { path: 'review', component: StepReviewComponent },             // الخطوة 5
       { path: '', redirectTo: 'details', pathMatch: 'full' }
     ]
   },

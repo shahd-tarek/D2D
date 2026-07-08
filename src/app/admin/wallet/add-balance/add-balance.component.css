@@ -1,0 +1,162 @@
+.animate-fade{
+    padding: 10px 30px;
+    background-color: #f9f9f9;
+      box-sizing: border-box;
+}
+.page-main-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+.wallet-card {
+    background-color: #ffffff;
+    padding: 36px;
+    border-radius: 28px;
+    border: 1px solid #CACACA;
+
+}
+
+.balance-title {
+    color: #555;
+    font-size: 15px;
+}
+
+.balance-amount {
+    color: #603319;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.grid-payment-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 24px;
+}
+
+@media(min-width: 768px) {
+    .grid-payment-container {
+        grid-template-columns: 1.3fr 1fr;
+    }
+}
+
+.methods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.method-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border: 1px solid #CACACA;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.method-item.selected {
+    border-color: #603319;
+    background-color: #fdfbf7;
+}
+
+.method-details {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.method-logo {
+    height: 40px;
+}
+
+.custom-radio {
+    accent-color: #603319;
+    width: 18px;
+    height: 18px;
+}
+
+.invoice-summary-card {
+    background-color: #ffffff;
+    border: 1px solid #CACACA;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-title {
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #CACACA;
+    font-size: 14px;
+}
+
+.summary-total-row {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    font-size: 15px;
+}
+
+.summary-total-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #603319;
+}
+
+.action-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #CACACA;
+}
+
+.btn-primary-dark {
+    background-color: #603319;
+    color: #fff;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #FBFAF8;
+    color: #603319;
+    border: 1px solid #603319;
+    padding: 14px 36px;
+    border-radius: 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.animate-fade {
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

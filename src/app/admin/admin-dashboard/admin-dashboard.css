@@ -4,7 +4,6 @@ body {
   overflow-x: hidden; 
 }
 
-/* الهيكل العام للداشبورد */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
@@ -12,7 +11,6 @@ body {
   position: relative;
 }
 
-/* --- المحتوى الرئيسي (Main Content) --- */
 .main-content {
   flex-grow: 1;
   padding: 10px 30px;
@@ -24,7 +22,6 @@ body {
   box-sizing: border-box;
 }
 
-/* الهيدر والعناصر العلوية */
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -42,36 +39,6 @@ body {
   margin: 4px 0 0 0;
 }
 
-.user-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.profile-container {
-  position: relative;
-}
-
-.profile-trigger {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.avatar-img {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.user-name {
-  font-weight: 500;
-  color: #2d2621;
-  font-size: 1rem;
-}
-/* --- الكروت العامة (Cards Styling) --- */
 .card {
   background-color: #f9f9f9;
   border-radius: 16px;
@@ -101,8 +68,6 @@ body {
   font-size: 13px;
   font-weight: 600;
 }
-
-/* إحصائيات الـ KPI */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -142,7 +107,6 @@ body {
   margin: 8px 0 12px 0;
 }
 
-/* --- القوائم المشتركة (Users & Tickets) --- */
 .lists-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -155,7 +119,7 @@ body {
   padding: 12px 0;
   border-bottom: 1px solid #cacaca;
   gap: 15px;
-  flex-wrap: wrap; /* للسماح بنزول التاريخ في الشاشات الضيقة جداً */
+  flex-wrap: wrap; 
 }
 
 .list-item:last-child {
@@ -176,22 +140,28 @@ body {
 .item-info h4 { margin: 0; font-size: 14px; }
 .item-info p { margin: 2px 0 0 0; font-size: 12px; color: #777777; }
 
-/* البادجات (Badges) */
 .badge {
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 11px;
   font-weight: 600;
 }
-.badge.active, .badge.resolved { background-color: #e8f8f5; color: #27ae60; }
-.badge.open { background-color: #fdf2e9; color: #e67e22; }
 
+.badge.approved,.badge.resolved {
+  background-color: #e8f8f5;
+  color: #27ae60;
+}
+
+.badge.pending,.badge.open{
+  background-color: #fdf2e9;
+  color: #e67e22;
+}
 .item-date {
   font-size: 12px;
   color: #777777;
 }
 
-/* --- شبكة الرسوم البيانية (Charts Grid) --- */
+/* --- (Charts Grid) --- */
 .bottom-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -225,14 +195,14 @@ body {
   color: #603319;
 }
 
-/* 1. مخطط الدونات (Donut Chart) */
+/* (Donut Chart) */
 .chart-wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 40px;
   padding: 10px 0;
-  flex-wrap: wrap; /* يتجاوب إذا كانت المساحة العرضية صغيرة */
+  flex-wrap: wrap; 
 }
 
 .donut-container {
@@ -240,7 +210,7 @@ body {
   height: 140px;
   position: relative;
   flex-shrink: 0;
-  margin: 0 auto; /* يتوسط عند النزول لسطر جديد */
+  margin: 0 auto; 
 }
 
 .donut-container svg {
@@ -304,7 +274,7 @@ body {
   color: #603319;
 }
 
-/* 2. المخطط الخطي (Line Chart) */
+/*(Line Chart) */
 .line-chart-container {
   width: 100%;
   display: flex;
@@ -340,10 +310,7 @@ body {
   transform: rotate(180deg);
 }
 
-/* --- القوائم المنسدلة (Dropdowns) --- */
-
-
-/* 2. زر تشغيل القائمة */
+/* ---(Dropdowns) --- */
 .dropdown-trigger {
   background-color: #ffffff;
   border: 1px solid #603319;
@@ -376,19 +343,19 @@ body {
 }
 
 .dropdown-menu {
-  position: absolute;       /* تجعل القائمة تطير وتطفو فوق العناصر */
-  top: calc(100% + 6px);    /* تظهر مباشرة أسفل الزر بمسافة 6 بكسل */
-  right: 0;                 /* محاذاة القائمة لتبدأ من اليمين לתفادي الخروج عن الشاشة */
+  position: absolute;       
+  top: calc(100% + 6px);    
+  right: 0;                
   background-color: #ffffff;
   border: 1px solid #CACACA;
   border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(96, 51, 25, 0.15); /* إبراز الظل لرؤيتها بوضوح */
+  box-shadow: 0 4px 20px rgba(96, 51, 25, 0.15);
   min-width: 160px;
-  z-index: 9999 !important; /* قيمة مرتفعة جداً تضمن ظهورها فوق أي كارت أو رسم بياني */
+  z-index: 9999 !important; 
   padding: 6px 0;
   margin: 0;
-  list-style: none;         /* ضروري جداً لإلغاء النقاط الافتراضية للقائمة */
-  display: block;           /* نضمن أنها تأخذ وضع الـ Block عند تحقق شرط Angular */
+  list-style: none;         
+  display: block;           
 }
 
 .dropdown-item {
@@ -396,39 +363,32 @@ body {
   font-size: 13px;
   color: #603319;
   cursor: pointer;
-  text-align: left;         /* أو right حسب اتجاه لوحة التحكم */
+  text-align: left;        
   transition: background 0.2s;
-  list-style: none;         /* تأكيد إلغاء أي نقاط */
+  list-style: none;       
 }
 
 .dropdown-item:hover {
   background-color: #f5ede6;
 }
 
-/* لمنع أي تعارض من كلاسات الأب */
 .dropdown-wrapper {
   position: relative;
   display: inline-block;
 }
 .dropdown-item.active {
-  background-color: #603319; /* اللون البني الافتراضي بتاعك */
-  color: #ffffff;           /* لون الكتابة يقلب أبيض عشان يظهر */
+  background-color: #f5ede6;
 }
 
-/* اختياري: لو عايزه لما يmouseover يفضل بلون لطيف */
-.dropdown-item.active:hover {
-  background-color: #4a2810; /* بني أغمق سنة عند الهوفر */
-  color: #ffffff;
-}
 
-/* --- الجداول الفعالة (Data Tables) --- */
+/* --- (Data Tables) --- */
 .table-card {
-  overflow: hidden; /* لحماية انحناءات الكارت عند ظهور السكرول */
+  overflow: hidden;
 }
 
 .table-wrapper {
   width: 100%;
-  overflow-x: auto; /* يسمح بسحب الجدول أفقياً في الشاشات الصغيرة دون تخريب الصفحة */
+  overflow-x: auto; 
   -webkit-overflow-scrolling: touch;
 }
 
@@ -436,7 +396,7 @@ body {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  overflow-x: auto; /* يسمح بالتمرير للأزرار الفلترة في الموبايل */
+  overflow-x: auto; 
   padding-bottom: 5px;
   white-space: nowrap;
 }
@@ -462,7 +422,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  min-width: 600px; /* لضمان عدم انضغاط بيانات الجدول في الشاشات الصغيرة */
+  min-width: 600px; 
 }
 
 .data-table th {
@@ -502,12 +462,11 @@ body {
 .status-dot.declined { background-color: #eb5757; }
 
 /* ==========================================================================
-   قواعد الاستجابة وتوافق الشاشات (Media Queries) - أقل من 768 بكسل
+  (Media Queries)
    ========================================================================== */
 @media screen and (max-width: 768px) {
   
 
-  /* ضبط تنسيق محتوى الصفحة الرئيسي ليأخذ المساحة كاملة */
   .main-content {
     padding: 20px 15px;
     width: 100%;
@@ -521,10 +480,9 @@ body {
   }
 
   .user-name {
-    display: none !important; /* إخفاء الاسم النصي لتوفير مساحة */
+    display: none !important; 
   }
 
-  /* الرسوم البيانية والقوائم تأخذ العرض الكامل */
   .bottom-grid, .lists-grid {
     grid-template-columns: 1fr;
   }

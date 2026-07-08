@@ -1,53 +1,55 @@
 <main class="main-content">
-    <!-- الهيدر العلوي -->
     <header class="content-header">
         <div class="header-title">
             <h1>Collaborations</h1>
             <p>Track collaboration progress and resolve related issues.</p>
         </div>
-        <div class="user-profile">
-            <button class="notification-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke="#603319" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-            <div class="profile-info">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100" alt="Ahmed" class="avatar">
-                <span class="user-name">Ahmed</span>
-            </div>
-        </div>
     </header>
 
-    <!-- قسم الفلاتر والبحث الكبسولات -->
+    @if (!isChatDetailsVisible) {
     <section class="filters-section">
         <div class="search-and-status">
             <div class="search-wrapper">
-                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="11" cy="11" r="8" stroke="#603319" stroke-width="2"/>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#603319" stroke-width="2" stroke-linecap="round"/>
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="8" stroke="#603319" stroke-width="2" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#603319" stroke-width="2"
+                        stroke-linecap="round" />
                 </svg>
-                <input type="text" placeholder="Search" class="search-input">
+                <input type="text" placeholder="Search" class="search-input" [(ngModel)]="offerName"
+                    (input)="onSearchChange()">
             </div>
-            
+
             <div class="status-capsules">
-                <button class="capsule active">All <span>(17)</span></button>
-                <button class="capsule">Completed <span>(16)</span></button>
-                <button class="capsule">Closed <span>(3)</span></button>
-                <button class="capsule">Pending <span>(7)</span></button>
+                <button class="capsule" [class.active]="selectedStatus === 'all'" (click)="filterByStatus('all')">
+                    All <span>({{ allCount }})</span>
+                </button>
+                <button class="capsule" [class.active]="selectedStatus === 'completed'"
+                    (click)="filterByStatus('completed')">
+                    Completed <span>({{ completedCount }})</span>
+                </button>
+                <button class="capsule" [class.active]="selectedStatus === 'closed'" (click)="filterByStatus('closed')">
+                    Closed <span>({{ closedCount }})</span>
+                </button>
+                <button class="capsule" [class.active]="selectedStatus === 'pending'"
+                    (click)="filterByStatus('pending')">
+                    Pending <span>({{ pendingCount }})</span>
+                </button>
             </div>
         </div>
 
         <div class="sort-dropdown-container">
-            <button class="sort-btn">
-                Sort By: Newest 
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9l6 6 6-6" stroke="#603319" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button class="sort-btn" (click)="toggleSortOrder()">
+                Sort By: {{ isNewest ? 'Newest' : 'Oldest' }}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    [style.transform]="isNewest ? 'none' : 'rotate(180deg)'" style="transition: transform 0.2s;">
+                    <path d="M6 9l6 6 6-6" stroke="#603319" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
     </section>
 
-    <!-- جدول البيانات المعدل بالكامل طبقاً للصورة -->
     <section class="table-container">
         <table class="users-table">
             <thead>
@@ -63,200 +65,77 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- الصف الأول -->
+                @for (item of collaborations; track item.designId) {
                 <tr>
                     <td>
                         <div class="table-design-info">
-                            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=100" class="design-avatar" alt="White T-Shirt">
+                            <img [src]="item.designImages?.[0] || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=100'"
+                                class="design-avatar" alt="Design Image">
                             <div>
-                                <h4 class="design-name">White T-Shirt</h4>
-                                <span class="design-id">ID: #DTD1245</span>
+                                <h4 class="design-name">{{ item.publishOfferName }}</h4>
+                                <span class="design-id">ID: #{{ item.designId ? item.designId.substring(0, 7) : 'N/A'
+                                    }}</span>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" class="cell-avatar" alt="Salma">
-                            <span class="cell-name">Salma</span>
+                            <img [src]="item.customerImage || 'Unknown-Person.png'" class="cell-avatar" alt="Customer">
+                            <span class="cell-name">{{ item.customerName || 'Unknown' }}</span>
                         </div>
                     </td>
                     <td>
                         <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100" class="cell-avatar" alt="Salma">
-                            <span class="cell-name">Salma</span>
+                            <img [src]="item.producerImage || 'Unknown-Person.png'" class="cell-avatar" alt="Producer">
+                            <span class="cell-name">{{ item.producerName || 'Unknown' }}</span>
                         </div>
                     </td>
-                    <td>EGP 24,000</td>
-                    <td>EGP 6,000</td>
-                    <td><span class="badge completed">completed</span></td>
-                    <td>Jun 21,2026</td>
-                    <td><button class="btn-chat-details">Chat Details</button></td>
+                    <td>EGP {{ item.amount | number }}</td>
+                    <td>EGP {{ item.deposit | number }}</td>
+                    <td>
+                        <span class="badge" [ngClass]="item.status?.toLowerCase()">{{ item.status }}</span>
+                    </td>
+                    <td>{{ item.createdAt | date:'MMM d, yyyy' }}</td>
+                    <td>
+                        <!-- item.chatId -->
+                        <button class="btn-chat-details" (click)="showChatDetails(1)">Chat Details</button>
+                    </td>
                 </tr>
-
-                <!-- الصف الثاني -->
+                } @empty {
                 <tr>
-                    <td>
-                        <div class="table-design-info">
-                            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=100" class="design-avatar" alt="sweatshirt">
-                            <div>
-                                <h4 class="design-name">sweatshirt</h4>
-                                <span class="design-id">ID: #DTD1244</span>
-                            </div>
-                        </div>
+                    <td colspan="8" style="text-align: center; padding: 30px; color: #666;">
+                        No collaborations found.
                     </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" class="cell-avatar" alt="Mohamed">
-                            <span class="cell-name">Mohamed</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100" class="cell-avatar" alt="Mohamed">
-                            <span class="cell-name">Mohamed</span>
-                        </div>
-                    </td>
-                    <td>EGP 24,000</td>
-                    <td>EGP 6,000</td>
-                    <td><span class="badge closed">Closed</span></td>
-                    <td>Apr 12,2026</td>
-                    <td><button class="btn-chat-details">Chat Details</button></td>
                 </tr>
-
-                <!-- الصف الثالث -->
-                <tr>
-                    <td>
-                        <div class="table-design-info">
-                            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=100" class="design-avatar" alt="Jeans Jacket">
-                            <div>
-                                <h4 class="design-name">Jeans Jacket</h4>
-                                <span class="design-id">ID: #DTD1242</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100" class="cell-avatar" alt="Zeyad">
-                            <span class="cell-name">Zeyad</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100" class="cell-avatar" alt="Zeyad">
-                            <span class="cell-name">Zeyad</span>
-                        </div>
-                    </td>
-                    <td>EGP 24,000</td>
-                    <td>EGP 6,000</td>
-                    <td><span class="badge pending">Pending</span></td>
-                    <td>Sep 17, 2025</td>
-                    <td><button class="btn-chat-details">Chat Details</button></td>
-                </tr>
-
-                <!-- الصف الرابع -->
-                <tr>
-                    <td>
-                        <div class="table-design-info">
-                            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=100" class="design-avatar" alt="Jacket">
-                            <div>
-                                <h4 class="design-name">Jacket</h4>
-                                <span class="design-id">ID: #DTD1241</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100" class="cell-avatar" alt="Mona">
-                            <span class="cell-name">Mona</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100" class="cell-avatar" alt="Mona">
-                            <span class="cell-name">Mona</span>
-                        </div>
-                    </td>
-                    <td>EGP 24,000</td>
-                    <td>EGP 6,000</td>
-                    <td><span class="badge completed">Completed</span></td>
-                    <td>May 25, 2024</td>
-                    <td><button class="btn-chat-details">Chat Details</button></td>
-                </tr>
-
-                <!-- الصف الخامس -->
-                <tr>
-                    <td>
-                        <div class="table-design-info">
-                            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=100" class="design-avatar" alt="White T-Shirt">
-                            <div>
-                                <h4 class="design-name">White T-Shirt</h4>
-                                <span class="design-id">ID: #DTD1245</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100" class="cell-avatar" alt="Zeyad">
-                            <span class="cell-name">Zeyad</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100" class="cell-avatar" alt="Zeyad">
-                            <span class="cell-name">Zeyad</span>
-                        </div>
-                    </td>
-                    <td>EGP 24,000</td>
-                    <td>EGP 6,000</td>
-                    <td><span class="badge pending">Pending</span></td>
-                    <td>Sep 17, 2025</td>
-                    <td><button class="btn-chat-details">Chat Details</button></td>
-                </tr>
-
-                <!-- الصف السادس -->
-                <tr>
-                    <td>
-                        <div class="table-design-info">
-                            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=100" class="design-avatar" alt="sweatshirt">
-                            <div>
-                                <h4 class="design-name">sweatshirt</h4>
-                                <span class="design-id">ID: #DTD1244</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100" class="cell-avatar" alt="Mona">
-                            <span class="cell-name">Mona</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="table-user-cell">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100" class="cell-avatar" alt="Mona">
-                            <span class="cell-name">Mona</span>
-                        </div>
-                    </td>
-                    <td>EGP 24,000</td>
-                    <td>EGP 6,000</td>
-                    <td><span class="badge in-progress">In Progress</span></td>
-                    <td>May 25, 2024</td>
-                    <td><button class="btn-chat-details">Chat Details</button></td>
-                </tr>
+                }
             </tbody>
         </table>
     </section>
 
-    <!-- أزرار الترقيم السفلي الدائرية المحدثة -->
+    @if (totalPages > 1) {
     <footer class="pagination-footer">
-        <button class="page-arrow-circle">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        <button class="page-arrow" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
         </button>
-        <button class="page-num-circle active">1</button>
-        <button class="page-num-circle">2</button>
-        <button class="page-num-circle">3</button>
-        <span class="page-dots">...</span>
-        <button class="page-arrow-circle">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+
+        @for (page of pagesArray; track page) {
+        <button class="page-num" [class.active]="currentPage === page" (click)="goToPage(page)">
+            {{ page }}
+        </button>
+        }
+
+        <button class="page-arrow" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+            </svg>
         </button>
     </footer>
+    }
+
+    } @else {
+    <app-chat-details [chatId]="selectedChatId" (backPressed)="backToCollaborationsList()">
+    </app-chat-details>
+    }
 </main>

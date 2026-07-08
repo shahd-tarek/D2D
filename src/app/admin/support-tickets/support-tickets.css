@@ -1,68 +1,58 @@
-/* --- التنسيقات العامة والخطوط --- */
 .main-content {
     padding: 10px 30px;
     background-color: #f9f9f9;
-    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
 }
 
-/* --- الهيدر العلوي --- */
 .content-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 16px;
 }
+
 .header-title h1 {
     font-size: 26px;
     color: #111;
     margin: 0 0 6px 0;
 }
+
 .header-title p {
     font-size: 14px;
     color: #666;
     margin: 0;
 }
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-.user-profile .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-}
-.user-name {
-    font-size: 14px;
-    font-weight: 600;
-}
-.notification-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
 
-/* --- قسم الفلاتر والبحث الكبسولات --- */
 .filters-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
 }
+
 .search-and-status {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-wrap: wrap;
 }
+
 .search-wrapper {
     position: relative;
     display: flex;
     align-items: center;
+    width: auto;
 }
+
 .search-icon {
     position: absolute;
     left: 14px;
 }
+
 .search-input {
     width: 260px;
     padding: 10px 12px 10px 40px;
@@ -71,10 +61,13 @@
     outline: none;
     font-size: 14px;
 }
+
 .status-capsules {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
+
 .capsule {
     background: #f9f9f9;
     border: 1px solid #e2dad5;
@@ -84,12 +77,15 @@
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
+    white-space: nowrap;
 }
+
 .capsule.active {
     background-color: #603319;
     border-color: #603319;
     color: #ffffff;
 }
+
 .sort-btn {
     background: #ffffff;
     border: 1px solid #e2dad5;
@@ -100,20 +96,25 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
 }
 
-/* --- تنسيقات جدول التيكتس --- */
 .table-container {
     background: #ffffff;
     border: 1px solid #ede7e3;
     border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 200px;
 }
+
 .tickets-table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 800px;
 }
+
 .tickets-table th {
     background-color: #fcfbfa;
     padding: 16px 20px;
@@ -122,79 +123,171 @@
     border-bottom: 1px solid #ede7e3;
     text-align: left;
 }
+
 .tickets-table td {
     padding: 16px 20px;
     font-size: 14px;
     border-bottom: 1px solid #f7f4f2;
+    vertical-align: middle;
 }
+
 .ticket-id {
     font-weight: 500;
     color: #555;
 }
+
 .user-name-cell {
     font-weight: 500;
 }
+
 .subject-cell {
     color: #222;
-    max-width: 300px;
+    max-width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* --- كبسولات الحالة (Badges) --- */
 .badge {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
     font-weight: 500;
+    display: inline-block;
+    text-align: center;
 }
-.badge.resolved { background: #e8f7f0; color: #27ae60; }
-.badge.open { background: #fef5ea; color: #f39c12; }
-.badge.in-review { background: #f0ebf9; color: #8e44ad; }
 
-/* --- أزرار الإجراءات داخل الجدول --- */
+.badge.open {
+    background-color: #FFF4E8;
+    color: #E5A13B;
+}
+
+.badge.inreview, .badge.inprogress {
+    background-color: #F2EBFD;
+    color: #7561C8;
+}
+
+.badge.resolved {
+    background-color: #EEF7EE;
+    color: #22C55E;
+}
+
 .actions-cell {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    overflow: visible !important; 
 }
-.btn-change-status {
-    background: none;
-    border: 1px solid #e2dad5;
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 12px;
+
+.status-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-status-dropdown {
+    background-color: transparent;
+    border: 1px solid #603319;
+    color: #603319;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
+    font-weight: 500;
     display: flex;
     align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+.status-dropdown-wrapper .dropdown-list-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 9999;
+    background: #fff;
+    min-width: 160px;
+    border-radius: 14px;
+    padding: 6px;
+    border: 1px solid #ECE7E3;
+    box-shadow: 0px 12px 30px rgba(0,0,0,.12);
+    margin-top: 4px;
+}
+
+.status-dropdown-wrapper .dropdown-list-menu.show {
+    display: flex;
+    flex-direction: column;
     gap: 4px;
 }
+
+.arrow {
+    transition: transform .25s;
+}
+
+.arrow.rotate {
+    transform: rotate(180deg);
+}
+
+@keyframes dropMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-list-menu .dropdown-item {
+    border: none;
+    background: transparent;
+    color: #444444;
+    padding: 10px 14px;
+    border-radius: 10px;
+    display: block;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.dropdown-list-menu .dropdown-item:hover {
+    background: #F8F5F2;
+    color: #603319;
+}
+
 .btn-reply {
     border: none;
-    border-radius: 15px;
-    padding: 6px 16px;
-    font-size: 12px;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
+    white-space: nowrap;
 }
+
 .btn-reply.active {
     background-color: #603319;
     color: #ffffff;
 }
+
 .btn-reply.disabled {
     background-color: #e0e0e0;
     color: #888888;
     cursor: not-allowed;
 }
 
-/* --- الـ Pagination الترقيم السفلي --- */
 .pagination-footer {
     display: flex;
     justify-content: center;
     gap: 6px;
     margin-top: 24px;
 }
+
 .page-num, .page-arrow {
     width: 32px;
     height: 32px;
@@ -206,108 +299,122 @@
     align-items: center;
     justify-content: center;
 }
+
 .page-num.active {
     background: #603319;
     color: #fff;
     border-color: #603319;
 }
 
-/* ==================== تصميم الـ Modals المنبثقة ==================== */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    padding: 16px;
 }
+
 .modal-box {
     background: #ffffff;
     border-radius: 24px;
     padding: 30px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
-}
-.modal-box h2 {
-    font-size: 20px;
-    color: #111;
-    margin: 0 0 8px 0;
-}
-.modal-subtitle {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-.textarea-wrapper {
-    position: relative;
-    margin-bottom: 24px;
-}
-.textarea-wrapper textarea {
-    width: 100%;
-    height: 160px;
-    border: 1px solid #ede7e3;
-    background-color: #fbfbfa;
-    border-radius: 16px;
-    padding: 16px;
-    outline: none;
-    resize: none;
-    font-family: inherit;
-}
-.char-count {
-    position: absolute;
-    bottom: 12px; right: 16px;
-    font-size: 12px; color: #999;
-}
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-.btn-modal-cancel {
-    background: none;
-    border: 1px solid #e2dad5;
-    padding: 10px 24px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-.btn-modal-submit, .btn-success-done {
-    background-color: #603319;
-    color: #ffffff;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 500;
+    box-sizing: border-box;
 }
 
-/* نافذة النجاح خضراء الأيقونة */
-.success-box {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.modal-box h2 { font-size: 20px; color: #111; margin: 0 0 8px 0; }
+.modal-subtitle { font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 20px; }
+.textarea-wrapper { position: relative; margin-bottom: 24px; }
+.textarea-wrapper textarea {
+    width: 100%; height: 160px; border: 1px solid #ede7e3;
+    background-color: #fbfbfa; border-radius: 16px; padding: 16px;
+    outline: none; resize: none; font-family: inherit;
+    box-sizing: border-box;
 }
-.success-icon-circle {
-    width: 60px;
-    height: 60px;
-    background-color: #27ae60;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+.char-count { position: absolute; bottom: 12px; right: 16px; font-size: 12px; color: #999; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 12px; }
+.btn-modal-cancel { background: none; border: 1px solid #e2dad5; padding: 10px 24px; border-radius: 20px; cursor: pointer; }
+.btn-modal-submit, .btn-success-done { background-color: #603319; color: #ffffff; border: none; padding: 10px 30px; border-radius: 20px; cursor: pointer; font-weight: 500; }
+.success-box { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.success-icon-circle { width: 60px; height: 60px; background-color: #27ae60; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.modal-close-x { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
+.btn-success-done { width: 100%; margin-top: 10px; }
+
+/* ==========================================================================
+   Media Queries 
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 15px 20px;
+    }
 }
-.modal-close-x {
-    position: absolute;
-    top: 20px; right: 20px;
-    background: none; border: none;
-    font-size: 24px; cursor: pointer; color: #999;
+
+@media (max-width: 768px) {
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-and-status {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .search-wrapper, .search-input {
+        width: 100%;
+    }
+
+    .sort-btn {
+        align-self: flex-start;
+        width: 100%;
+        justify-content: center;
+    }
 }
-.btn-success-done {
-    width: 100%;
-    margin-top: 10px;
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 10px 12px;
+    }
+
+    .header-title h1 {
+        font-size: 22px;
+    }
+
+    .status-capsules {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .capsule {
+        padding: 6px 12px;
+        font-size: 12px;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .modal-box {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-modal-cancel, .btn-modal-submit {
+        width: 100%;
+        text-align: center;
+    }
 }

@@ -1,11 +1,9 @@
-/* التنسيقات العامة والخلفية للوحة */
 .main-content {
   padding: 20px;
   background-color: #fcfbfa;
-  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
 }
 
-/* زر الرجوع والعنوان العلوي */
 .back-nav {
   display: flex;
   align-items: center;
@@ -27,7 +25,6 @@
   text-decoration: none;
 }
 
-/* الكارت العلوي الرئيسي للمستخدم */
 .user-main-card {
   background-color: #fbf9f8;
   border: 1px solid #f3efed;
@@ -89,7 +86,6 @@
   margin: 0;
 }
 
-/* زر الثلاث نقاط والقائمة المنسدلة */
 .action-dropdown-container {
   position: relative;
 }
@@ -102,7 +98,6 @@
   padding: 8px;
 }
 
-/* تنسيق الـ Dropdown المنسدل الموضح على اليمين */
 .dropdown-list-menu {
   position: absolute;
   right: 0;
@@ -112,13 +107,12 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   width: 180px;
   z-index: 10;
-  display: none; /* يتم إظهاره عند تفعيل الـ click/hover */
+  display: none; 
   flex-direction: column;
   overflow: hidden;
   border: 1px solid #f0f0f0;
 }
 
-/* لإظهار الـ dropdown بشكل مؤقت للمعاينة */
 .action-dropdown-container:hover .dropdown-list-menu {
   display: flex;
 }
@@ -136,14 +130,12 @@
 .dropdown-item.delete { color: #ff4d4f; }
 .dropdown-item:hover { background-color: #f9f9f9; }
 
-/* توزيع الشاشة السفلي إلى عمودين */
 .details-grid-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
 
-/* كروت تعبئة البيانات الداخلية */
 .info-card-block, .stats-card-block, .documents-card-block {
   background-color: #ffffff;
   border: 1px solid #f0edf0;
@@ -159,7 +151,6 @@
   font-weight: 600;
 }
 
-/* هيكلية الأسطر بداخل الكروت */
 .info-row {
   display: flex;
   justify-content: space-between;
@@ -187,7 +178,6 @@
   color: #111 !important;
 }
 
-/* قسم قائمة الملفات والمستندات */
 .document-list {
   display: flex;
   flex-direction: column;
@@ -230,7 +220,6 @@
   margin: 2px 0 0 0;
 }
 
-/* أزرار عرض المستندات بنيّة اللون كما بالصورة */
 .btn-view-doc {
   background-color: #4a2810;
   color: #ffffff;
@@ -247,7 +236,6 @@
   background-color: #331b0a;
 }
 
-/* التوافق مع الشاشات الصغيرة لجعلها عمود واحد */
 @media screen and (max-width: 912px) {
   .details-grid-layout {
     grid-template-columns: 1fr;
