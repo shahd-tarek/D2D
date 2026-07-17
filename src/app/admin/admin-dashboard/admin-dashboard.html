@@ -1,8 +1,5 @@
 <div class="dashboard-container">
-
-
     <main class="main-content">
-
         <header class="main-header">
             <div class="welcome-text">
                 <h1>Dashboard</h1>
@@ -60,316 +57,316 @@
 
                 <span class="timeframe">Current</span>
                 <a href="#" class="view-all">View all ➔</a>
-</div>
-</section>
-
-<section class="charts-grid bottom-grid">
-
-    <div class="card bottom-card">
-        <div class="section-title-container">
-            <span class="section-title">Collaboration Status</span>
-            <div class="dropdown-wrapper">
-
-                <div class="dropdown-trigger" (click)="toggleOffersDropdown()">
-
-                    <span>{{ offersFilter }}</span>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="arrow-icon" [class.rotated]="isOffersOpen">
-
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-
-                    </svg>
-
-                </div>
-
-                @if (isOffersOpen) {
-                <ul class="dropdown-menu">
-
-                    @for(option of filterOptions; track option){
-
-                    <li class="dropdown-item" [class.active]="offersFilter===option"
-                        (click)="selectOffersFilter(option)">
-
-                        {{option}}
-
-                    </li>
-
-                    }
-
-                </ul>
-                }
-
             </div>
-        </div>
-        <div class="chart-wrapper">
-            <div class="donut-container">
-                <svg width="130" height="130" viewBox="0 0 42 42">
-                    <circle cx="21" cy="21" r="15.915" fill="#fff"></circle>
-                    <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#4a2810" stroke-width="4.2"
-                        stroke-dasharray="11 89" stroke-dashoffset="25"></circle>
-                    <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#8c6a51" stroke-width="4.2"
-                        stroke-dasharray="15 85" stroke-dashoffset="14"></circle>
-                    <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#cdbbaa" stroke-width="4.2"
-                        stroke-dasharray="22 78" stroke-dashoffset="99"></circle>
-                    <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#603319" stroke-width="4.2"
-                        stroke-dasharray="52 48" stroke-dashoffset="77"></circle>
-                </svg>
-                <div class="donut-center-text">
-                    <div class="donut-total-num">27</div>
-                    <div class="donut-total-label">Total</div>
-                </div>
-            </div>
+        </section>
 
-            <div class="chart-legends">
-                <div class="legend-item">
-                    <div class="legend-left">
-                        <div class="color-dot" style="background-color: #603319;"></div>
-                        <span>Completed</span>
-                    </div>
-                    <div class="legend-stats">9</div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-left">
-                        <div class="color-dot" style="background-color: #cdbbaa;"></div>
-                        <span>Declined</span>
-                    </div>
-                    <div class="legend-stats">6</div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-left">
-                        <div class="color-dot" style="background-color: #8c6a51;"></div>
-                        <span>Pending</span>
-                    </div>
-                    <div class="legend-stats">4</div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-left">
-                        <div class="color-dot" style="background-color: #4a2810;"></div>
-                        <span>In Progress</span>
-                    </div>
-                    <div class="legend-stats">3</div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <section class="charts-grid bottom-grid">
 
-    <div class="card bottom-card">
-        <div class="section-title-container">
-            <span class="section-title">Revenue Overview</span>
-            <div class="dropdown-wrapper">
+            <div class="card bottom-card">
+                <div class="section-title-container">
+                    <span class="section-title">Collaboration Status</span>
+                    <div class="dropdown-wrapper">
 
-                <div class="dropdown-trigger" (click)="toggleRevenueDropdown()">
+                        <div class="dropdown-trigger" (click)="toggleOffersDropdown()">
 
-                    <span>{{ revenueFilter }}</span>
+                            <span>{{ offersFilter }}</span>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="arrow-icon" [class.rotated]="isRevenueOpen">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" class="arrow-icon" [class.rotated]="isOffersOpen">
 
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
 
-                    </svg>
+                            </svg>
 
-                </div>
-
-                @if (isRevenueOpen) {
-
-                <ul class="dropdown-menu">
-
-                    @for(option of filterOptions; track option){
-
-                    <li class="dropdown-item" [class.active]="revenueFilter===option"
-                        (click)="selectRevenueFilter(option)">
-
-                        {{option}}
-
-                    </li>
-
-                    }
-
-                </ul>
-
-                }
-
-            </div>
-        </div>
-
-        <div class="line-chart-container">
-            <svg viewBox="0 0 400 200" class="line-chart-svg">
-                <line x1="50" y1="20" x2="380" y2="20" stroke="#f5ede6" stroke-width="1" />
-                <line x1="50" y1="50" x2="380" y2="50" stroke="#f5ede6" stroke-width="1" />
-                <line x1="50" y1="80" x2="380" y2="80" stroke="#f5ede6" stroke-width="1" />
-                <line x1="50" y1="110" x2="380" y2="110" stroke="#f5ede6" stroke-width="1" />
-                <line x1="50" y1="140" x2="380" y2="140" stroke="#f5ede6" stroke-width="1" />
-
-                <line x1="90" y1="20" x2="90" y2="150" stroke="#f5ede6" stroke-width="1" />
-                <line x1="137" y1="20" x2="137" y2="150" stroke="#f5ede6" stroke-width="1" />
-                <line x1="184" y1="20" x2="184" y2="150" stroke="#f5ede6" stroke-width="1" />
-                <line x1="231" y1="20" x2="231" y2="150" stroke="#f5ede6" stroke-width="1" />
-                <line x1="278" y1="20" x2="278" y2="150" stroke="#f5ede6" stroke-width="1" />
-                <line x1="325" y1="20" x2="325" y2="150" stroke="#f5ede6" stroke-width="1" />
-
-                <path d="M 90 70 L 137 115 L 184 85 L 231 100 L 278 60 L 325 110 L 370 135" fill="none" stroke="#603319"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-
-                <text x="40" y="23" class="chart-text">100</text>
-                <text x="40" y="53" class="chart-text">80</text>
-                <text x="40" y="83" class="chart-text">60</text>
-                <text x="40" y="113" class="chart-text">40</text>
-                <text x="40" y="143" class="chart-text">20</text>
-                <text x="43" y="153" class="chart-text">0</text>
-
-                <text x="40" y="185" class="chart-text-bold">D/M</text>
-                <text x="90" y="185" class="chart-text">1</text>
-                <text x="137" y="185" class="chart-text">2</text>
-                <text x="184" y="185" class="chart-text">3</text>
-                <text x="231" y="185" class="chart-text">4</text>
-                <text x="278" y="185" class="chart-text">5</text>
-                <text x="325" y="185" class="chart-text">6</text>
-                <text x="370" y="185" class="chart-text">7</text>
-            </svg>
-        </div>
-    </div>
-</section>
-
-<section class="lists-grid">
-    <div class="card list-card">
-        <div class="card-header">
-            <h3>Recent Users</h3>
-            <a href="#" class="view-all">View all ➔</a>
-        </div>
-
-        @for (user of recentUsers; track user.id) {
-
-        <div class="list-item">
-
-            <img [src]="user.profileImage || 'Unknown-Person.png'" [alt]="user.name" class="avatar-sm">
-
-            <div class="item-info">
-                <h4>{{ user.name }}</h4>
-                <p>{{ user.type }}</p>
-            </div>
-
-            <span class="badge" [class.approved]="user.status === 'Approved'"
-                [class.pending]="user.status === 'Pending'">
-                {{ user.status }}
-            </span>
-
-            <span class="item-date">
-                {{ user.createdAt | date:'MMM d, y' }}
-            </span>
-
-        </div>
-
-        }
-    </div>
-
-
-    <div class="card list-card">
-        <div class="card-header">
-            <h3>Support Tickets</h3>
-            <a href="#" class="view-all">View all ➔</a>
-        </div>
-
-        @for (ticket of recentTickets; track ticket.id) {
-
-        <div class="list-item">
-
-            <span class="ticket-icon red">🚩</span>
-
-            <div class="item-info">
-                <h4>#{{ ticket.id }}</h4>
-                <p>{{ ticket.issueType }}</p>
-            </div>
-
-            <span class="badge" [class.resolved]="ticket.status === 'Resolved'"
-                [class.open]="ticket.status !== 'Resolved'">
-
-                {{ ticket.status }}
-            </span>
-
-            <span class="item-date">
-                {{ ticket.createdAt | date:'MMM d, y' }}
-            </span>
-
-        </div>
-
-        }
-    </div>
-</section>
-
-<section class="card table-card">
-    <div class="card-header">
-        <h3>Active Collaborations</h3>
-        <a href="#" class="view-all">View all ➔</a>
-    </div>
-
-    <div class="table-filters">
-        <button class="filter-btn active">All (17)</button>
-        <button class="filter-btn">Completed (4)</button>
-        <button class="filter-btn">In Progress (7)</button>
-        <button class="filter-btn">Pending (4)</button>
-        <button class="filter-btn">Declined (2)</button>
-    </div>
-    <div class="table-wrapper">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Customer</th>
-                    <th>Producer</th>
-                    <th>Status</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (item of dashboardCollaborations; track item.designId) {
-                <tr>
-                    <td>
-                        #{{ item.designId ? item.designId.substring(0,7) : 'N/A' }}
-                    </td>
-
-                    <td>
-                        <div class="table-user">
-                            <img [src]="item.customerImage || 'Unknown-Person.png'" class="avatar-sm" alt="">
-                            {{ item.customerName }}
                         </div>
-                    </td>
 
-                    <td>
-                        <div class="table-user">
-                            <img [src]="item.producerImage || 'Unknown-Person.png'" class="avatar-sm" alt="">
-                            {{ item.producerName }}
+                        @if (isOffersOpen) {
+                        <ul class="dropdown-menu">
+
+                            @for(option of filterOptions; track option){
+
+                            <li class="dropdown-item" [class.active]="offersFilter===option"
+                                (click)="selectOffersFilter(option)">
+
+                                {{option}}
+
+                            </li>
+
+                            }
+
+                        </ul>
+                        }
+
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <div class="donut-container">
+                        <svg width="130" height="130" viewBox="0 0 42 42">
+                            <circle cx="21" cy="21" r="15.915" fill="#fff"></circle>
+                            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#4a2810" stroke-width="4.2"
+                                stroke-dasharray="11 89" stroke-dashoffset="25"></circle>
+                            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#8c6a51" stroke-width="4.2"
+                                stroke-dasharray="15 85" stroke-dashoffset="14"></circle>
+                            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#cdbbaa" stroke-width="4.2"
+                                stroke-dasharray="22 78" stroke-dashoffset="99"></circle>
+                            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#603319" stroke-width="4.2"
+                                stroke-dasharray="52 48" stroke-dashoffset="77"></circle>
+                        </svg>
+                        <div class="donut-center-text">
+                            <div class="donut-total-num">27</div>
+                            <div class="donut-total-label">Total</div>
                         </div>
-                    </td>
+                    </div>
 
-                    <td>
-                        <span class="status-dot" [ngClass]="{
+                    <div class="chart-legends">
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="color-dot" style="background-color: #603319;"></div>
+                                <span>Completed</span>
+                            </div>
+                            <div class="legend-stats">9</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="color-dot" style="background-color: #cdbbaa;"></div>
+                                <span>Declined</span>
+                            </div>
+                            <div class="legend-stats">6</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="color-dot" style="background-color: #8c6a51;"></div>
+                                <span>Pending</span>
+                            </div>
+                            <div class="legend-stats">4</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-left">
+                                <div class="color-dot" style="background-color: #4a2810;"></div>
+                                <span>In Progress</span>
+                            </div>
+                            <div class="legend-stats">3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bottom-card">
+                <div class="section-title-container">
+                    <span class="section-title">Revenue Overview</span>
+                    <div class="dropdown-wrapper">
+
+                        <div class="dropdown-trigger" (click)="toggleRevenueDropdown()">
+
+                            <span>{{ revenueFilter }}</span>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" class="arrow-icon" [class.rotated]="isRevenueOpen">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+
+                            </svg>
+
+                        </div>
+
+                        @if (isRevenueOpen) {
+
+                        <ul class="dropdown-menu">
+
+                            @for(option of filterOptions; track option){
+
+                            <li class="dropdown-item" [class.active]="revenueFilter===option"
+                                (click)="selectRevenueFilter(option)">
+
+                                {{option}}
+
+                            </li>
+
+                            }
+
+                        </ul>
+
+                        }
+
+                    </div>
+                </div>
+
+                <div class="line-chart-container">
+                    <svg viewBox="0 0 400 200" class="line-chart-svg">
+                        <line x1="50" y1="20" x2="380" y2="20" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="50" y1="50" x2="380" y2="50" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="50" y1="80" x2="380" y2="80" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="50" y1="110" x2="380" y2="110" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="50" y1="140" x2="380" y2="140" stroke="#f5ede6" stroke-width="1" />
+
+                        <line x1="90" y1="20" x2="90" y2="150" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="137" y1="20" x2="137" y2="150" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="184" y1="20" x2="184" y2="150" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="231" y1="20" x2="231" y2="150" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="278" y1="20" x2="278" y2="150" stroke="#f5ede6" stroke-width="1" />
+                        <line x1="325" y1="20" x2="325" y2="150" stroke="#f5ede6" stroke-width="1" />
+
+                        <path d="M 90 70 L 137 115 L 184 85 L 231 100 L 278 60 L 325 110 L 370 135" fill="none"
+                            stroke="#603319" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <text x="40" y="23" class="chart-text">100</text>
+                        <text x="40" y="53" class="chart-text">80</text>
+                        <text x="40" y="83" class="chart-text">60</text>
+                        <text x="40" y="113" class="chart-text">40</text>
+                        <text x="40" y="143" class="chart-text">20</text>
+                        <text x="43" y="153" class="chart-text">0</text>
+
+                        <text x="40" y="185" class="chart-text-bold">D/M</text>
+                        <text x="90" y="185" class="chart-text">1</text>
+                        <text x="137" y="185" class="chart-text">2</text>
+                        <text x="184" y="185" class="chart-text">3</text>
+                        <text x="231" y="185" class="chart-text">4</text>
+                        <text x="278" y="185" class="chart-text">5</text>
+                        <text x="325" y="185" class="chart-text">6</text>
+                        <text x="370" y="185" class="chart-text">7</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="lists-grid">
+            <div class="card list-card">
+                <div class="card-header">
+                    <h3>Recent Users</h3>
+                    <a href="#" class="view-all">View all ➔</a>
+                </div>
+
+                @for (user of recentUsers; track user.id) {
+
+                <div class="list-item">
+
+                    <img [src]="user.profileImage || 'Unknown-Person.png'" [alt]="user.name" class="avatar-sm">
+
+                    <div class="item-info">
+                        <h4>{{ user.name }}</h4>
+                        <p>{{ user.type }}</p>
+                    </div>
+
+                    <span class="badge" [class.approved]="user.status === 'Approved'"
+                        [class.pending]="user.status === 'Pending'">
+                        {{ user.status }}
+                    </span>
+
+                    <span class="item-date">
+                        {{ user.createdAt | date:'MMM d, y' }}
+                    </span>
+
+                </div>
+
+                }
+            </div>
+
+
+            <div class="card list-card">
+                <div class="card-header">
+                    <h3>Support Tickets</h3>
+                    <a href="#" class="view-all">View all ➔</a>
+                </div>
+
+                @for (ticket of recentTickets; track ticket.id) {
+
+                <div class="list-item">
+
+                    <span class="ticket-icon red">🚩</span>
+
+                    <div class="item-info">
+                        <h4>#{{ ticket.id }}</h4>
+                        <p>{{ ticket.issueType }}</p>
+                    </div>
+
+                    <span class="badge" [class.resolved]="ticket.status === 'Resolved'"
+                        [class.open]="ticket.status !== 'Resolved'">
+
+                        {{ ticket.status }}
+                    </span>
+
+                    <span class="item-date">
+                        {{ ticket.createdAt | date:'MMM d, y' }}
+                    </span>
+
+                </div>
+
+                }
+            </div>
+        </section>
+
+        <section class="card table-card">
+            <div class="card-header">
+                <h3>Active Collaborations</h3>
+                <a href="#" class="view-all">View all ➔</a>
+            </div>
+
+            <div class="table-filters">
+                <button class="filter-btn active">All (17)</button>
+                <button class="filter-btn">Completed (4)</button>
+                <button class="filter-btn">In Progress (7)</button>
+                <button class="filter-btn">Pending (4)</button>
+                <button class="filter-btn">Declined (2)</button>
+            </div>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Producer</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of dashboardCollaborations; track item.designId) {
+                        <tr>
+                            <td>
+                                #{{ item.designId ? item.designId.substring(0,7) : 'N/A' }}
+                            </td>
+
+                            <td>
+                                <div class="table-user">
+                                    <img [src]="item.customerImage || 'Unknown-Person.png'" class="avatar-sm" alt="">
+                                    {{ item.customerName }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="table-user">
+                                    <img [src]="item.producerImage || 'Unknown-Person.png'" class="avatar-sm" alt="">
+                                    {{ item.producerName }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="status-dot" [ngClass]="{
                            completed: item.status === 'Completed',
                              pending: item.status === 'Pending',
                                declined: item.status === 'Closed'}">
-                        </span>
+                                </span>
 
-                        {{ item.status }}
-                    </td>
+                                {{ item.status }}
+                            </td>
 
-                    <td>
-                        EGP {{ item.amount | number }}
-                    </td>
+                            <td>
+                                EGP {{ item.amount | number }}
+                            </td>
 
-                    <td>
-                        {{ item.createdAt | date:'MMM d, yyyy' }}
-                    </td>
-                    }
-                    @empty {
-                <tr>
-                    <td colspan="6" style="text-align:center;padding:20px">
-                        No collaborations found.
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</section>
+                            <td>
+                                {{ item.createdAt | date:'MMM d, yyyy' }}
+                            </td>
+                            }
+                            @empty {
+                        <tr>
+                            <td colspan="6" style="text-align:center;padding:20px">
+                                No collaborations found.
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
