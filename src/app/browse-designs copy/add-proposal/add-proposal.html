@@ -1,0 +1,161 @@
+<div class="proposal-page">
+  <header class="back-header">
+    <button class="btn-back" (click)='goBack()'>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="back-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+      </svg>
+      Proposal
+    </button>
+  </header>
+
+  <div class="main-content">
+    <aside class="left-panel">
+      <div class="product-preview-card">
+        <img [src]="designDetails.image" alt="Product Image" class="product-img">
+      </div>
+
+      <div class="info-box">
+        <h2 class="section-title">Description</h2>
+        <p class="description-text">{{ designDetails.description }}</p>
+      </div>
+
+      <div class="info-box">
+        <h2 class="section-title">Specifications</h2>
+        <table class="specs-table">
+          <tr><td>Design Name</td><td class="font-bold">{{ designDetails.name }}</td></tr>
+          <tr><td>Category</td><td class="font-bold">{{ designDetails.category }}</td></tr>
+          <tr><td>Target Audience</td><td class="font-bold">{{ designDetails.targetAudience }}</td></tr>
+          <tr><td>Gender</td><td class="font-bold">{{ designDetails.gender }}</td></tr>
+          <tr><td>Season</td><td class="font-bold">{{ designDetails.season }}</td></tr>
+          <tr>
+            <td>Colors</td>
+            <td>
+              <div class="color-dots">
+                @for (color of designDetails.colors; track color) {
+                  <span class="color-dot" [style.background-color]="color" [class.white-border]="color === '#ffffff'"></span>
+                }
+              </div>
+            </td>
+          </tr>
+          <tr><td>Materials</td><td class="font-bold">{{ designDetails.materials }}</td></tr>
+          <tr><td>Quantity</td><td class="font-bold">{{ designDetails.quantity }} pcs</td></tr>
+          <tr><td>Target Price</td><td class="font-bold">{{ designDetails.targetPrice }}</td></tr>
+          <tr><td>Sizes</td><td class="font-bold">{{ designDetails.sizes }}</td></tr>
+          <tr><td>Printing</td><td class="font-bold">{{ designDetails.printing }}</td></tr>
+        </table>
+      </div>
+    </aside>
+
+    <main class="right-panel">
+      <p class="intro-instruction">Introduce yourself and explain how you can help bring the design to life.</p>
+
+      <form #f="ngForm" (ngSubmit)="submitProposal()">
+        <div class="form-group">
+          <label class="main-label">Enter Your Price</label>
+          <div class="price-row">
+            <div class="price-field">
+              <label>Price Per Piece</label>
+              <div class="input-with-currency">
+                <input type="number" placeholder="EGP" [(ngModel)]="proposalForm.pricePerPiece" name="pricePiece" (input)="onPriceChange()" required min="1">
+              </div>
+            </div>
+            <div class="price-field">
+              <label>Total Price for {{ designDetails.quantity }} Pieces</label>
+              <div class="input-with-currency">
+                <input type="number" placeholder="EGP" [(ngModel)]="proposalForm.totalPrice" name="totalPrice" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Required Deposit (%)</label>
+          <p class="field-instruction" style="color: #64748b; font-size: 0.85rem; margin-top: -4px; margin-bottom: 8px;">Enter the deposit percentage required to start production (between 20% and 50%).</p>
+          <input type="number" placeholder="e.g. 30" class="standard-input" [(ngModel)]="proposalForm.deposit" name="deposit" required min="20" max="50" style="max-width: 200px;">
+          @if (proposalForm.deposit && (proposalForm.deposit < 20 || proposalForm.deposit > 50)) {
+            <span class="error-text" style="color: #ea4335; font-size: 0.8rem; font-weight: 600; margin-top: 4px; display: block;">Deposit must be between 20% and 50%.</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Delivery Time (Days)</label>
+          <p class="field-instruction" style="color: #64748b; font-size: 0.85rem; margin-top: -4px; margin-bottom: 8px;">Expected duration to complete production. Calculated automatically from your steps.</p>
+          <input type="number" placeholder="e.g. 30" class="standard-input" [(ngModel)]="proposalForm.deliveryTime" name="delivery" required min="1">
+        </div>
+
+        <div class="form-group">
+          <label class="main-label">Manufacturing Steps & Timeline</label>
+          <p class="field-instruction" style="color: #64748b; font-size: 0.85rem; margin-top: -4px; margin-bottom: 12px;">Define the steps of your production process and the time required for each.</p>
+          
+          <div class="steps-list">
+            @for (step of stepsList; track $index; let idx = $index) {
+              <div class="step-row">
+                <div style="flex: 2;">
+                  <input type="text" placeholder="Step Name (e.g. Sourcing fabric)" class="standard-input" [(ngModel)]="step.name" [name]="'stepName_' + idx" required style="margin-bottom: 0; width: 100%;">
+                </div>
+                <div style="flex: 1.5; display: flex; align-items: center; gap: 8px;">
+                  <input type="number" placeholder="Min" class="standard-input" [(ngModel)]="step.minDays" [name]="'stepMin_' + idx" required min="1" style="margin-bottom: 0; width: 65px;" (change)="onStepsChanged()">
+                  <span style="font-size: 13px; color: #64748b;">to</span>
+                  <input type="number" placeholder="Max" class="standard-input" [(ngModel)]="step.maxDays" [name]="'stepMax_' + idx" required min="1" style="margin-bottom: 0; width: 65px;" (change)="onStepsChanged()">
+                  <span style="font-size: 13px; color: #64748b;">Days</span>
+                </div>
+                @if (stepsList.length > 3) {
+                  <button type="button" (click)="removeStep(idx)" style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px; display: flex; align-items: center;" title="Remove Step">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                }
+              </div>
+            }
+          </div>
+          
+          @if (stepsList.length < 3) {
+            <span class="error-text" style="color: #ea4335; font-size: 0.85rem; font-weight: 600; margin-top: 4px; display: block;">You must add at least 3 steps.</span>
+          }
+          
+          <button type="button" class="btn-add-step" (click)="addStep()">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Add Step
+          </button>
+        </div>
+
+        <div class="footer-actions">
+          <button type="button" class="btn-footer-secondary" (click)="goBack()">Back</button>
+          <button type="submit" class="btn-footer-primary" [disabled]="!f.form.valid || stepsList.length < 3 || (proposalForm.deposit && (proposalForm.deposit < 20 || proposalForm.deposit > 50))">Submit Proposal</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+@if (isModalOpen) {
+  <div class="modal-overlay">
+    <div class="modal-card">
+      <button class="close-btn" (click)="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="success-icon-container">
+        <div class="success-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          </svg>
+        </div>
+      </div>
+
+      <h3 class="modal-title">Proposal Submitted!</h3>
+      <p class="modal-description">
+        Your proposal has been successfully sent to the customer for "{{ designDetails.name }}". You will be notified if they accept your proposal.
+      </p>
+
+      <div class="modal-actions">
+        <button class="btn-modal-primary" (click)="goToProposals()">Go To My Proposals</button>
+        <button class="btn-modal-secondary" (click)="backToBrowse()">Back To Browse Designs</button>
+      </div>
+    </div>
+  </div>
+}

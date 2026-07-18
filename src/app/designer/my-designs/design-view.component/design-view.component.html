@@ -1,0 +1,393 @@
+<app-header></app-header>
+<div class="view-container">
+
+    <header class="view-header">
+        <div class="header-left">
+            <button class="btn-back" (click)="goBack()">&larr;</button>
+            <h1 class="main-design-title">{{ mode === 'edit' ? 'Edit Specifications' : 'Specifications Overview' }}</h1>
+        </div>
+    </header>
+
+    @if (isLoading) {
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading design details...</p>
+    </div>
+    } @else {
+    <form [formGroup]="editForm" (ngSubmit)="onSaveEdit()">
+        <div class="view-main-layout">
+
+            <div class="design-preview-side">
+                <div class="preview-card">
+                    <label class="section-main-title">Design Preview</label>
+                    <div class="main-image-box">
+                        <img [src]="resolveImageUrl(designDetails?.images)" [alt]="designDetails?.name">
+                    </div>
+                    @if (designDetails?.images && designDetails.images.length > 0) {
+                    <button type="button" class="btn-view-full" (click)="resolveImageUrl(designDetails?.images)">
+                        View full design
+                        <span class="icon-external">↗</span>
+                    </button>
+                    }
+
+                    <div class="design-info-block">
+                        <h3 class="block-title">Design Info</h3>
+                        <div class="info-row">
+                            <span class="info-label">Created on</span>
+                            <span class="info-value-text">{{ designDetails?.createdAt | date:'mediumDate' }}</span>
+                        </div>
+                        @if (designDetails?.publishedAt) {
+                        <div class="info-row">
+                            <span class="info-label">Published on</span>
+                            <span class="info-value-text">{{ designDetails?.publishedAt | date:'mediumDate' }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="design-info-block">
+                        <h3 class="block-title">Summary</h3>
+                        <div class="info-row">
+                            <span class="info-label">Colors</span>
+                            <span class="info-value-text">{{ mode === 'edit' ? selectedColors.length :
+                                (designDetails?.colors?.length || 0) }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="info-label">Sizes</span>
+                            <span class="info-value-text">{{ mode === 'edit' ? selectedSizes.length :
+                                (designDetails?.sizes?.length || 0) }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Total Quantity</span>
+                            <span class="info-value-text">{{ mode === 'edit' ? editForm.get('quantity')?.value :
+                                (designDetails?.amount || 0) }} pcs</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Target Price</span>
+                            <span class="info-value-text">{{ mode === 'edit' ? editForm.get('targetPrice')?.value :
+                                (designDetails?.maxPrice || 0) }} EGP / pc</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Printing</span>
+                            <span class="info-value-text">{{ mode === 'edit' ? editForm.get('printingType')?.value :
+                                (designDetails?.printingType || 'None') }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-info-side">
+
+                <div class="info-card">
+                    <h2 class="card-title">Basic Information</h2>
+
+                    <div class="info-group">
+                        <label>Design Name</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box edit-active">
+                            <input type="text" formControlName="designName" placeholder="Enter design name">
+                        </div>
+                        <span class="char-count">{{ designNameLength }}/50</span>
+                        @if (editForm.get('designName')?.touched && editForm.get('designName')?.invalid) {
+                        <span class="validation-error">Design name is required (max 50 characters)</span>
+                        }
+                        } @else {
+                        <div class="input-display-box">
+                            <span class="info-value">{{ designDetails?.name }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group">
+                        <label>Category</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box dropdown-box edit-active">
+                            <select formControlName="category">
+                                <option value="" disabled>Select category</option>
+                                <option value="top">Top</option>
+                                <option value="bottom">Bottom</option>
+                                <option value="outerwear">Outerwear</option>
+                                <option value="dresses">Dresses</option>
+                                <option value="activewear">Activewear</option>
+                                <option value="accessories">Accessories</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        @if (editForm.get('category')?.touched && editForm.get('category')?.invalid) {
+                        <span class="validation-error">Category is required</span>
+                        }
+                        } @else {
+                        <div class="input-display-box">
+                            <span class="info-value" style="text-transform: capitalize;">{{ designDetails?.category
+                                }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group">
+                        <label>Description</label>
+                        @if (mode === 'edit') {
+                        <div class="description-view-box edit-active">
+                            <textarea formControlName="description"
+                                placeholder="Describe your design specifications..."></textarea>
+                        </div>
+                        <span class="char-count">{{ descriptionLength }}/500</span>
+                        @if (editForm.get('description')?.touched && editForm.get('description')?.invalid) {
+                        <span class="validation-error">Description is required (max 500 characters)</span>
+                        }
+                        } @else {
+                        <div class="description-view-box">
+                            <p>{{ designDetails?.description }}</p>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group">
+                        <label>Target Audience</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box edit-active">
+                            <input type="text" formControlName="targetAudience"
+                                placeholder="EXP: Young adults, Children">
+                        </div>
+                        @if (editForm.get('targetAudience')?.touched && editForm.get('targetAudience')?.invalid) {
+                        <span class="validation-error">Target audience is required</span>
+                        }
+                        } @else {
+                        <div class="input-display-box">
+                            <span class="info-value">{{ designDetails?.targetAudience }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group">
+                        <label>Gender</label>
+                        @if (mode === 'edit') {
+                        <div class="gender-tags">
+                            @for (g of genderOptions; track g) {
+                            <span class="gender-tag clickable" [class.active]="editForm.get('gender')?.value === g"
+                                (click)="editForm.patchValue({ gender: g })">
+                                {{ g }}
+                            </span>
+                            }
+                        </div>
+                        } @else {
+                        <div class="gender-tags">
+                            @for (g of genderOptions; track g) {
+                            <span class="gender-tag"
+                                [class.active]="(designDetails?.gender === false || designDetails?.gender === 'Male') && g === 'Male' || (designDetails?.gender === true || designDetails?.gender === 'Female') && g === 'Female'">
+                                {{ g }}
+                            </span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-group">
+                        <label class="card-section-title">Colors</label>
+                        @if (mode === 'edit') {
+                        <div class="colors-grid">
+                            @for (color of availableColors; track color) {
+                            <button type="button" class="color-circle" [style.background-color]="color"
+                                [class.selected]="selectedColors.includes(color)" (click)="toggleColor(color)">
+                            </button>
+                            }
+                            <div class="add-color-container">
+                                <button type="button" class="btn-add-color" (click)="toggleColorPopover()">+</button>
+
+                                @if (showColorPopover) {
+                                <div class="color-popover">
+                                    <p class="popover-title">Select Color</p>
+                                    <div class="popover-presets">
+                                        @for (preset of presetColors; track preset) {
+                                        <button type="button" class="preset-circle" [style.background-color]="preset"
+                                            (click)="presetClicked(preset)"
+                                            [class.active]="customColorPicked === preset">
+                                        </button>
+                                        }
+                                    </div>
+                                    <div class="popover-custom-row">
+                                        <input type="color" [(ngModel)]="customColorPicked" class="popover-color-input"
+                                            [ngModelOptions]="{standalone: true}">
+                                        <span class="color-hex">{{ customColorPicked }}</span>
+                                        <button type="button" class="btn-confirm-color"
+                                            (click)="confirmCustomColor()">Add</button>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        @if (selectedColors.length === 0) {
+                        <span class="validation-error">At least one color is required</span>
+                        }
+                        } @else {
+                        <div class="color-badges-row">
+                            @for (color of designDetails?.colors; track color) {
+                            <div class="color-box-wrapper">
+                                <span class="color-box" [style.background-color]="color"
+                                    style="border: 1px solid #eae4de;"></span>
+                            </div>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group" style="margin-top: 24px;">
+                        <label class="card-section-title">Materials</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box edit-active">
+                            <input type="text" formControlName="materials"
+                                placeholder="EXP: French Terry, 320 GSM, 100% Cotton">
+                        </div>
+                        @if (editForm.get('materials')?.touched && editForm.get('materials')?.invalid) {
+                        <span class="validation-error">Materials is required</span>
+                        }
+                        } @else {
+                        <div class="materials-row">
+                            <div class="material-pill"
+                                style="background-color: #FAF9F6; border: 1px solid #EAE4DE; padding: 6px 12px; border-radius: 12px; font-size: 13px;">
+                                {{ designDetails?.material }}
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-group">
+                        <label class="card-section-title">Quantity (pcs)</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box edit-active">
+                            <input type="number" formControlName="quantity">
+                        </div>
+                        <span class="sub-caption">Maximum order quantity: 150 pieces</span>
+                        @if (editForm.get('quantity')?.touched && editForm.get('quantity')?.invalid) {
+                        <span class="validation-error">Quantity must be between 1 and 150</span>
+                        }
+                        } @else {
+                        <div class="input-display-box">
+                            <span class="info-value">{{ designDetails?.amount }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group" style="margin-top: 20px;">
+                        <label class="card-section-title">Target Price</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box price-box edit-active">
+                            <input type="number" formControlName="targetPrice">
+                            <span class="currency-label">EGP</span>
+                        </div>
+                        @if (editForm.get('targetPrice')?.touched && editForm.get('targetPrice')?.invalid) {
+                        <span class="validation-error">Target price is required</span>
+                        }
+                        } @else {
+                        <div class="input-display-box price-box">
+                            <span class="info-value">{{ designDetails?.maxPrice }}</span>
+                            <span class="currency-label">EGP</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group" style="margin-top: 20px;">
+                        <label class="card-section-title">Printing Type</label>
+                        @if (mode === 'edit') {
+                        <div class="input-display-box dropdown-box edit-active">
+                            <select formControlName="printingType">
+                                <option value="" disabled>Select option</option>
+                                @for (opt of printingTypeOptions; track opt) {
+                                <option [value]="opt">{{ opt }}</option>
+                                }
+                            </select>
+                        </div>
+                        @if (editForm.get('printingType')?.touched && editForm.get('printingType')?.invalid) {
+                        <span class="validation-error">Printing type is required</span>
+                        }
+                        } @else {
+                        <div class="input-display-box">
+                            <span class="info-value">{{ designDetails?.printingType }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group" style="margin-top: 20px;">
+                        <label class="card-section-title">Duration</label>
+                        @if (mode === 'edit') {
+                        <div class="duration-edit-row">
+                            <div class="input-display-box edit-active">
+                                <input type="number" formControlName="durationValue">
+                            </div>
+                            <div class="input-display-box edit-active">
+                                <select formControlName="durationUnit">
+                                    <option value="days">Days</option>
+                                    <option value="weeks">Weeks</option>
+                                    <option value="months">Months</option>
+                                </select>
+                            </div>
+                        </div>
+                        @if ((editForm.get('durationValue')?.touched && editForm.get('durationValue')?.invalid) ||
+                        (editForm.get('durationUnit')?.touched && editForm.get('durationUnit')?.invalid)) {
+                        <span class="validation-error">Duration value and unit are required</span>
+                        }
+                        } @else {
+                        <div class="input-display-box">
+                            <span class="info-value">{{ designDetails?.duration }} Days</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="info-group" style="margin-top: 20px;">
+                        <label class="card-section-title">Sizes</label>
+                        @if (mode === 'edit') {
+                        <div class="sizes-checkbox-grid">
+                            @for (size of allSizes; track size) {
+                            <label class="size-check clickable" [class.checked]="selectedSizes.includes(size)"
+                                (click)="toggleSize(size)">
+                                {{ size }}
+                            </label>
+                            }
+                        </div>
+                        @if (selectedSizes.length === 0) {
+                        <span class="validation-error">At least one size is required</span>
+                        }
+                        } @else {
+                        <div class="sizes-checkbox-grid">
+                            @for (size of allSizes; track size) {
+                            <label class="size-check" [class.checked]="designDetails?.sizes?.includes(size)">
+                                {{ size }}
+                            </label>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                @if (designDetails?.sizesFileUrl) {
+                <div class="size-chart-section">
+                    <h3 class="chart-section-title">Uploaded Size Chart</h3>
+                    <div style="margin-top: 10px;">
+                        <a [href]="resolveImageUrl([designDetails.sizesFileUrl])" target="_blank"
+                            style="color: #603319; font-weight: 500; text-decoration: underline;">
+                            View Size Chart Document
+                        </a>
+                    </div>
+                </div>
+                }
+
+                <div class="action-buttons-row">
+                    @if (mode === 'edit') {
+                    <button type="button" class="btn-secondary" (click)="goBack()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Edit</button>
+                    } @else {
+                    <button type="button" class="btn-secondary" (click)="goBack()">Back</button>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    }
+</div>
+<app-footer></app-footer>

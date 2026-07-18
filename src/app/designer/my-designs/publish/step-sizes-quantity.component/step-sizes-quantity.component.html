@@ -1,0 +1,96 @@
+<form [formGroup]="sizesForm" class="step-form">
+  <div class="form-group">
+    <label class="section-label">Sizes</label>
+    <p class="field-sub">Select available sizes</p>
+    <div class="sizes-checkboxes">
+      @for (size of allSizes; track size) {
+        <label class="checkbox-label">
+          <input type="checkbox" [checked]="selectedSizes.includes(size)" (change)="onSizeToggle(size)">
+          <span class="custom-checkbox"></span>
+          {{ size }}
+        </label>
+      }
+    </div>
+    @if (selectedSizes.length === 0) {
+      <span class="validation-error">At least one size is required</span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Size chart (Optional)</label>
+    <div class="upload-zone" (click)="fileInput.click()">
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*,application/pdf" class="hidden-file-input">
+      
+      @if (sizeChartFileName) {
+        <div class="preview-container-uploaded">
+          @if (sizeChartPreviewUrl) {
+            <img [src]="sizeChartPreviewUrl" alt="Size Chart Preview" class="uploaded-image-preview">
+          } @else {
+            <div class="pdf-icon">📄</div>
+          }
+          <p class="uploaded-file-name">{{ sizeChartFileName }}</p>
+          <button type="button" class="btn-remove-file" (click)="$event.stopPropagation(); removeFile()">Remove</button>
+        </div>
+      } @else {
+        <div class="upload-icon">&#8682;</div>
+        <p class="upload-title">Upload Image Or File</p>
+        <p class="upload-sub">PNG, JPG Or PDF Up To 5MB</p>
+        <button type="button" class="btn-upload-small">Upload</button>
+      }
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Quantity (pcs)</label>
+    <input type="number" formControlName="quantity" placeholder="Enter required quantity">
+    <p class="field-info-hint">Maximum order quantity: 150 pieces</p>
+    @if (sizesForm.get('quantity')?.touched && sizesForm.get('quantity')?.invalid) {
+      @if (sizesForm.get('quantity')?.hasError('min')) {
+        <span class="validation-error">Quantity must be at least 1</span>
+      } @else if (sizesForm.get('quantity')?.hasError('max')) {
+        <span class="validation-error">Quantity cannot exceed 150</span>
+      } @else {
+        <span class="validation-error">Quantity is required</span>
+      }
+    }
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Target Price</label>
+    <div class="price-input-wrapper">
+      <input type="number" formControlName="targetPrice" placeholder="Enter your target price per piece">
+      <span class="currency-badge">EGP</span>
+    </div>
+    <p class="field-info-hint">Producers may submit different offers based on materials and production requirements.</p>
+    @if (sizesForm.get('targetPrice')?.touched && sizesForm.get('targetPrice')?.invalid) {
+      @if (sizesForm.get('targetPrice')?.hasError('min')) {
+        <span class="validation-error">Target price must be greater than 0</span>
+      } @else {
+        <span class="validation-error">Target price is required</span>
+      }
+    }
+  </div>
+
+  <div class="form-group">
+    <label class="section-label">Duration</label>
+    <div class="duration-row">
+      <input type="number" formControlName="durationValue" placeholder="EXP: 3">
+      <div class="select-wrapper">
+        <select formControlName="durationUnit">
+          <option value="days">Days</option>
+          <option value="weeks">Weeks</option>
+          <option value="months">Months</option>
+        </select>
+      </div>
+    </div>
+    <p class="field-info-hint">Specify the required time to finish production.</p>
+    @if (sizesForm.get('durationValue')?.touched && sizesForm.get('durationValue')?.invalid) {
+      @if (sizesForm.get('durationValue')?.hasError('min')) {
+        <span class="validation-error">Duration must be at least 1</span>
+      } @else {
+        <span class="validation-error">Duration is required</span>
+      }
+    }
+  </div>
+
+</form>

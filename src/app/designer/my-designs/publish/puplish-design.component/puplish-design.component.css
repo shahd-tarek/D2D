@@ -1,0 +1,262 @@
+:host {
+  display: block;
+}
+
+.publish-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.publish-header {
+  margin-bottom: 30px;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #603319;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Stepper*/
+.stepper-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 90px;
+}
+
+.step-icon, .step-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #EFEBE6;
+  color: #a3948b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.step.completed .step-icon {
+  background-color: #E2F5E9;
+  color: #27AE60;
+}
+
+.step.active .step-number {
+  background-color: #603319;
+  color: #FBFAF8;
+}
+
+.step-label {
+  font-size: 11px;
+  margin-top: 8px;
+  color: #a3948b;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.step.active .step-label {
+  color: #603319;
+  font-weight: 600;
+}
+
+.step-line {
+  flex-grow: 1;
+  max-width: 80px;
+  height: 1px;
+  background-color: #EFEBE6;
+  margin-bottom: 20px;
+}
+
+.step-line.active {
+  background-color: #603319;
+}
+
+.section-instruction {
+  text-align: center;
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+
+.main-content-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.image-preview-side {
+  display: flex;
+  justify-content: center;
+}
+
+.image-box {
+  background-color: #FAF8F5;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  border: 1px solid #F0EAE3;
+}
+
+.image-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.details-form-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input[type="text"], select, textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #EAE4DE;
+  border-radius: 14px;
+  background-color: #FAF9F6;
+  color: #603319;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #C0B5AD;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.char-count {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: 11px;
+  color: #C0B5AD;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-wrapper::after {
+  content: '▼';
+  font-size: 10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #603319;
+  pointer-events: none;
+}
+
+.chips-group {
+  display: flex;
+  gap: 10px;
+}
+
+.chip {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid #EAE4DE;
+  background-color: #FAF9F6;
+  color: #603319;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.chip.active {
+  border-color: #603319;
+  background-color: #FAF6F2;
+  font-weight: 600;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-prev, .btn-next {
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-prev {
+  background-color: transparent;
+  border: 1px solid #603319;
+  color: #603319;
+}
+
+.btn-next {
+  background-color: #603319;
+  color: #FBFAF8;
+  border: none;
+}
+
+.btn-next:disabled {
+  background-color: #EAE4DE;
+  color: #C0B5AD;
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: none;
+}
+
+.validation-error {
+  color: #d32f2f;
+  font-size: 11px;
+  margin-top: 4px;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .main-content-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

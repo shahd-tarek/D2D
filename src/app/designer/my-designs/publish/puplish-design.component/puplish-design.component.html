@@ -1,0 +1,66 @@
+<form [formGroup]="publishForm" class="details-form-side">
+  
+  <div class="form-group">
+    <label>Design Name</label>
+    <div class="input-wrapper">
+      <input type="text" formControlName="designName" placeholder="EXP: Oversized Hoodie" maxlength="50">
+      <span class="char-count">{{ designNameLength }}/50</span>
+    </div>
+    @if (publishForm.get('designName')?.touched && publishForm.get('designName')?.invalid) {
+      <span class="validation-error">Design name is required (max 50 chars)</span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Category</label>
+    <div class="select-wrapper">
+      <select formControlName="category">
+        <option value="" disabled>Select category</option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="outerwear">Outerwear</option>
+        <option value="dresses">Dresses</option>
+        <option value="activewear">Activewear</option>
+        <option value="accessories">Accessories</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    @if (publishForm.get('category')?.touched && publishForm.get('category')?.invalid) {
+      <span class="validation-error">Category is required</span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <div class="input-wrapper">
+      <textarea formControlName="description" placeholder="Describe your design in detail." rows="5" maxlength="500"></textarea>
+      <span class="char-count">{{ descriptionLength }}/500</span>
+    </div>
+    @if (publishForm.get('description')?.touched && publishForm.get('description')?.invalid) {
+      <span class="validation-error">Description is required (max 500 chars)</span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Target Audience</label>
+    <input type="text" formControlName="targetAudience" placeholder="EXP: Women 18-30, Casual Streetwear Lovers">
+    @if (publishForm.get('targetAudience')?.touched && publishForm.get('targetAudience')?.invalid) {
+      <span class="validation-error">Target audience is required</span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Gender</label>
+    <div class="chips-group">
+      @for (option of genderOptions; track option) {
+        <button 
+          type="button" 
+          [class.active]="selectedGender === option"
+          (click)="selectGender(option)"
+          class="chip">
+          {{ option }}
+        </button>
+      }
+    </div>
+  </div>
+</form>

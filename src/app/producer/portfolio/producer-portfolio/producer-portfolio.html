@@ -1,0 +1,114 @@
+<app-header></app-header>
+
+@if (currentView === 'list') {
+<div class="container">
+  <header class="header-section">
+    <div>
+      <h1 class="main-title">My Portfolio</h1>
+      <p class="subtitle">Showcase your best designs, manage your collection, and track client interactions.</p>
+    </div>
+        <button class="btn-add-design">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Add New Design
+    </button>
+  </header>
+
+  <div class="toolbar-section">
+    <div class="left-toolbar">
+      <div class="search-box">
+        <span class="search-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.603 10.603Z" />
+          </svg>
+        </span>
+        <input type="text" placeholder="Search" [(ngModel)]="searchQuery">
+      </div>
+    </div>
+
+    <div class="right-toolbar">
+      <div class="sort-container">
+        <div class="sort-dropdown" (click)="toggleSortDropdown()">
+          <span>Filter By: <b style="text-transform: capitalize;">{{ sortBy.replace('-', ' ') }}</b></span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+            class="arrow-icon" [class.rotated]="isSortOpen">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+          </svg>
+        </div>
+
+        @if (isSortOpen) {
+        <ul class="sort-menu">
+          <li [class.active]="sortBy === 'newest'" (click)="selectSort('newest')">Newest</li>
+          <li [class.active]="sortBy === 'lowest-price'" (click)="selectSort('lowest-price')">Lowest Price</li>
+          <li [class.active]="sortBy === 'highest-price'" (click)="selectSort('highest-price')">Highest Price</li>
+          <li [class.active]="sortBy === 'lowest-pieces'" (click)="selectSort('lowest-pieces')">Lowest Pieces</li>
+          <li [class.active]="sortBy === 'highest-pieces'" (click)="selectSort('highest-pieces')">Highest Pieces</li>
+        </ul>
+        }
+      </div>
+    </div>
+  </div>
+  
+<div class="designs-grid">
+    @for (design of paginatedDesigns; track design.id) {
+    <div class="design-card">
+      <div class="image-container">
+        <!-- أيقونة الأفتار العائمة المضافة (دائرية) -->
+        <div class="producer-avatar-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <img [src]="design.image || 'shirt.png'" [alt]="design.name" class="product-image">
+      </div>
+
+      <div class="card-details">
+        <h3 class="product-title">{{ design.name }}</h3>
+
+        <div class="card-footer-row">
+          <button class="btn-view-more" (click)="onViewDesign(design)">
+            View Details
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="arrow-more-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+</div>
+
+  @if (totalPages > 1) {
+  <footer class="pagination-container">
+    <button class="page-arrow" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="previous-page-arrow">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+      </svg>
+    </button>
+
+    @for (p of visiblePages; track $index) {
+    @if (p === '...') {
+    <span class="page-dots">...</span>
+    } @else {
+    <span class="page-number" [class.active]="currentPage === p" (click)="goToPage(p)">{{ p }}</span>
+    }
+    }
+
+    <button class="page-arrow" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="next-page-arrow">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+      </svg>
+    </button>
+  </footer>
+  }
+</div>
+} 
+
+<app-footer></app-footer>

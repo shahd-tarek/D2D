@@ -1,0 +1,86 @@
+<div class="review-layout">
+  <h2 class="review-title">Summary</h2>
+
+  <div class="summary-list">
+    <div class="summary-item">
+      <span class="item-label">Design Name</span>
+      <span class="item-value">{{ stateService.detailsData?.designName || '-' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Category</span>
+      <span class="item-value">{{ stateService.detailsData?.category || '-' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Target Audience</span>
+      <span class="item-value">{{ stateService.detailsData?.targetAudience || '-' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Gender</span>
+      <span class="item-value">{{ stateService.detailsData?.gender || '-' }}</span>
+    </div>
+    
+    <div class="summary-item">
+      <span class="item-label">Colors</span>
+      <span class="item-value flex-row">
+        @for (color of stateService.selectedColors; track color) {
+          <span class="color-indicator" [style.background-color]="color"></span>
+        }
+        @if (stateService.selectedColors.length === 0) {
+          -
+        }
+      </span>
+    </div>
+
+    <div class="summary-item">
+      <span class="item-label">Materials</span>
+      <span class="item-value">{{ stateService.colorsMaterialsData?.materials || '-' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Quantity</span>
+      <span class="item-value">{{ stateService.sizesQuantityData?.quantity || '-' }} pcs</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Target Price</span>
+      <span class="item-value">{{ stateService.sizesQuantityData?.targetPrice || '-' }} EGP</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Duration</span>
+      <span class="item-value">
+        {{ stateService.sizesQuantityData?.durationValue }} {{ stateService.sizesQuantityData?.durationUnit }} 
+        @if (stateService.sizesQuantityData?.durationInDays) {
+          ({{ stateService.sizesQuantityData?.durationInDays }} Days)
+        }
+      </span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Sizes</span>
+      <span class="item-value">{{ stateService.selectedSizes.join(', ') || '-' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="item-label">Printing</span>
+      <span class="item-value">{{ stateService.colorsMaterialsData?.printingType || '-' }}</span>
+    </div>
+  </div>
+
+  <div class="description-summary-section">
+    <h3 class="sub-title">Description</h3>
+    <div class="description-box">
+      <p>{{ stateService.detailsData?.description || 'No description provided.' }}</p>
+    </div>
+  </div>
+
+  @if (stateService.sizeChartFileName) {
+    <div class="size-chart-section">
+      <h3 class="sub-title">Size Chart</h3>
+      <div class="size-chart-preview-container">
+        @if (stateService.sizeChartPreviewUrl) {
+          <img [src]="stateService.sizeChartPreviewUrl" alt="Size Chart Preview" class="review-size-chart-img">
+        } @else {
+          <div class="review-pdf-icon">📄</div>
+          <p class="review-file-name-text">{{ stateService.sizeChartFileName }}</p>
+        }
+      </div>
+    </div>
+  }
+
+</div>
